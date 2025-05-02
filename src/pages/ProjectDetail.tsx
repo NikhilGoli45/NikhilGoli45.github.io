@@ -1,32 +1,53 @@
-
-import { useParams, Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import Footer from "@/components/Footer";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 import { projects } from "@/data/projects";
+
+// Import custom pages
+import NFS from "@/pages/projects/NFS";
+import OS from "./projects/OS";
+
+// Map project IDs to their custom page components
+const customPages: Record<string, React.FC> = {
+  NFS,
+  OS,
+  // Add more custom mappings like "Zingers": ZingersPage if needed
+};
 
 const ProjectDetail = () => {
   const { id } = useParams();
-  const project = projects.find((p) => p.id === id);
+  const navigate = useNavigate();
+
+  if (!id) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-grow container mx-auto px-6 py-24">
+          <h1 className="text-2xl font-semibold text-center">Invalid project ID</h1>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Render custom page if one exists
+  const CustomComponent = customPages[id];
+  if (CustomComponent) {
+    return <CustomComponent />;
+  }
+
+  // Otherwise fallback to generic rendering
+  const project = projects.find((p) => p.id.toLowerCase() === id.toLowerCase());
 
   if (!project) {
     return (
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <div className="flex-grow container mx-auto px-4 py-20 flex flex-col items-center justify-center">
-          <h1 className="text-3xl font-bold mb-4">Project Not Found</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-            The project you're looking for doesn't exist or has been removed.
-          </p>
-          <Button asChild>
-            <Link to="/#projects" className="flex items-center gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              Back to Projects
-            </Link>
-          </Button>
-        </div>
+        <main className="flex-grow container mx-auto px-6 py-24">
+          <h1 className="text-2xl font-semibold text-center">Project not found</h1>
+        </main>
         <Footer />
       </div>
     );
@@ -35,76 +56,81 @@ const ProjectDetail = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-grow">
-        <div className="container mx-auto px-4 py-12">
+      <main className="flex-grow container mx-auto px-6 py-24">
+        <Button
+          onClick={() => navigate("/#projects")}
+          variant="ghost"
+          className="mb-8 flex items-center gap-2"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Projects
+        </Button>
+
+        <h1 className="text-3xl font-bold mb-4">{project.title}</h1>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">{project.description}</p>
+
+        {project.challenge && (
           <div className="mb-6">
-            <Link 
-              to="/#projects" 
-              className="text-primary inline-flex items-center hover:underline mb-6"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Projects
-            </Link>
-            <h1 className="text-4xl font-bold mb-3">{project.title}</h1>
-            <div className="flex flex-wrap gap-2 mb-6">
+            <h2 className="text-xl font-semibold mb-2">Challenge</h2>
+            <p className="text-gray-700 dark:text-gray-400">{project.challenge}</p>
+          </div>
+        )}
+
+        {project.solution && (
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">Solution</h2>
+            <p className="text-gray-700 dark:text-gray-400">{project.solution}</p>
+          </div>
+        )}
+
+        {project.features && (
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">Features</h2>
+            <ul className="list-disc list-inside text-gray-700 dark:text-gray-400">
+              {project.features.map((feature, i) => (
+                <li key={i}>{feature}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {project.technologies && (
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">Technologies Used</h2>
+            <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, i) => (
-                <Badge key={i} variant="outline">{tech}</Badge>
+                <span
+                  key={i}
+                  className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full"
+                >
+                  {tech}
+                </span>
               ))}
             </div>
           </div>
-          
-          <div className="aspect-video w-full max-w-4xl mx-auto bg-gray-200 dark:bg-gray-800 mb-8 rounded-lg overflow-hidden">
-            {project.image === "placeholder" ? (
-              <div className="w-full h-full flex items-center justify-center text-gray-400">
-                Project Screenshot
-              </div>
-            ) : (
-              <img 
-                src={project.image} 
-                alt={project.title} 
-                className="w-full h-full object-cover"
-              />
-            )}
-          </div>
-          
-          <div className="max-w-3xl mx-auto">
-            <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
-              <h2>Project Overview</h2>
-              <p>{project.description}</p>
-              
-              <h2>Challenge</h2>
-              <p>{project.challenge || "The main challenge of this project was creating a seamless user experience while maintaining high performance and scalability."}</p>
-              
-              <h2>Solution</h2>
-              <p>{project.solution || "I implemented a modern architecture using the latest technologies to ensure both functionality and maintainability, with a focus on responsive design and intuitive user interfaces."}</p>
-              
-              {project.features && (
-                <>
-                  <h2>Key Features</h2>
-                  <ul>
-                    {project.features.map((feature, index) => (
-                      <li key={index}>{feature}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button size="lg" className="flex gap-2 items-center" asChild>
-                <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-                  View Live Demo
-                  <ArrowLeft className="w-4 h-4 rotate-[135deg]" />
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" className="flex gap-2 items-center" asChild>
-                <a href={project.repoLink} target="_blank" rel="noopener noreferrer">
-                  Source Code
-                  <ArrowLeft className="w-4 h-4 rotate-[135deg]" />
-                </a>
-              </Button>
-            </div>
-          </div>
+        )}
+
+        <div className="mt-8 flex gap-4">
+          {project.repoLink && (
+            <a
+              href={project.repoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-600 dark:text-blue-400 hover:opacity-80"
+            >
+              View Repo
+            </a>
+          )}
+          {project.demoLink && (
+            <a
+              href={project.demoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-600 dark:text-blue-400 hover:opacity-80"
+            >
+              View Demo
+            </a>
+          )}
         </div>
       </main>
       <Footer />

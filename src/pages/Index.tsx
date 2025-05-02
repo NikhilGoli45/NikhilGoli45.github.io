@@ -9,10 +9,28 @@ import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/utils/useScrollAnimation";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Index = () => {
   // Use the custom hook for scroll animations
   useScrollAnimation();
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash.replace("#", "");
+    if (hash) {
+      // Delay until after DOM is painted
+      requestAnimationFrame(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          const yOffset = -70; // Match your navbar offset
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      });
+    }
+  }, [location]);
   
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">

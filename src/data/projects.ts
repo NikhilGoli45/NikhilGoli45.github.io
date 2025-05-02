@@ -14,11 +14,29 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "NFS",
+    title: "Network File Server",
+    description: "A network file server capable of servicing concurrent Create, Delete, Read, and Write requests from multiple remote users.",
+    image: "placeholder",
+    technologies: ["C++", "Boost"],
+    demoLink: "",
+    repoLink: "",
+    challenge: "Creating a seamless shopping experience while ensuring secure transactions and efficient product management.",
+    solution: "Implemented a React frontend with Node.js backend, using MongoDB for data storage and Stripe for payment processing.",
+    features: [
+      "User authentication and profile management",
+      "Product catalog with search and filtering",
+      "Shopping cart with persistent storage",
+      "Secure checkout with Stripe integration",
+      "Order history and tracking"
+    ]
+  },
+  {
     id: "WagerWars",
     title: "Wager Wars",
     description: "A market making and risk management game built for the Umich Trading Competition and played by over 100 participants.",
     image: "placeholder",
-    technologies: ["Django", "React", "Redis", "PostgreSQL", "AWS"],
+    technologies: ["Python", "Django", "TypeScript", "React", "Redis", "PostgreSQL", "AWS"],
     demoLink: "",
     repoLink: "https://github.com/tradersatmichigan/wager-wars",
     challenge: "Creating a seamless shopping experience while ensuring secure transactions and efficient product management.",
@@ -36,7 +54,7 @@ export const projects: Project[] = [
     title: "Operating System Kernel",
     description: "A custom OS kernel inspired by Linux, implementing a lightweight thread scheduler and virtual memory pager for context switching and page fault handling with multi-core CPU support.",
     image: "placeholder",
-    technologies: ["React", "Firebase", "Material-UI", "Redux"],
+    technologies: ["C++"],
     demoLink: "",
     repoLink: "",
     challenge: "Designing an intuitive interface that supports complex task relationships and team collaboration workflows.",

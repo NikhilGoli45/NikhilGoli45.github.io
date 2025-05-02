@@ -21,7 +21,8 @@ const ProjectsSection = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
   const readyProjectIds = [
-    // "WagerWars" Uncomment to make ready
+    "NFS",
+    "OS"
   ];
 
   const isProjectReady = (projectId: string) => {
@@ -130,7 +131,7 @@ const ProjectsSection = () => {
                               className="flex gap-2 items-center ml-auto"
                               asChild
                             >
-                              <Link to={isProjectReady(project.id) ? `/project/${project.id}` : "/project/not-ready"}>
+                              <Link to={isProjectReady(project.id) ? `/projects/${project.id}` : "/projects/not-ready"}>
                                 <span>Details</span>
                                 <ArrowRight className="w-3 h-3" />
                               </Link>
