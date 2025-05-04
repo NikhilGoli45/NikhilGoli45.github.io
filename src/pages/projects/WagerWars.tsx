@@ -22,7 +22,7 @@ const WagerWars = () => {
     { src: "/wager-wars/running-simulation.png", alt: "Running Simulation Screen" },
     { src: "/wager-wars/landing-page.png", alt: "Player Landing Page" },
     { src: "/wager-wars/betting-form.png", alt: "Player Betting Screen" },
-    { src: "/wager-wars/_DSC1738.JPG", alt: "Wager Wars being Played at the UMich Trading Competition" }
+    { src: "/wager-wars/comp.png", alt: "Wager Wars being Played at the UMich Trading Competition" }
   ];
 
   return (

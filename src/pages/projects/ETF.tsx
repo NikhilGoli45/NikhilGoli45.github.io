@@ -59,7 +59,7 @@ const ETF = () => {
               <div className="flex flex-col items-center w-full md:w-[28rem]">
                 <div className="relative aspect-video w-full rounded-lg overflow-hidden shadow-lg">
                   <img
-                    src="/zingers/_DSC1655.JPG"
+                    src="/zingers/comp.png"
                     alt="Zingers being played live at a trading competition"
                     className="absolute h-full w-full object-cover"
                   />
