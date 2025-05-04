@@ -53,8 +53,8 @@ const WagerWars = () => {
         <section className="mt-12 mb-10">
           <h2 className="text-2xl font-semibold mb-2">How It Works</h2>
           <ul className="list-disc list-inside text-gray-700 dark:text-gray-400 space-y-2">
-            <li>Players are presented with randomized probabilistic scenarios.</li>
-            <li>Each player bets tokens on whether the event will succeed or fail.</li>
+            <li>Players are placed into teams and presented with randomized probabilistic scenarios.</li>
+            <li>Each player bets virtual money on whether the event will succeed or fail.</li>
             <li>Players can see all bets placed by others before a final round of betting.</li>
             <li>Successful bets are rewarded based on rarity-based multipliers.</li>
             <li>The team with the largest average stack at the end wins.</li>

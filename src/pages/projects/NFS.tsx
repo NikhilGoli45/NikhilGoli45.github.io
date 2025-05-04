@@ -57,8 +57,8 @@ const NFS = () => {
         <section className="mb-10">
           <h2 className="text-2xl font-semibold mb-2">Concurrency and Locking</h2>
           <p className="text-gray-700 dark:text-gray-400">
-            The server uses a thread-per-request model. All file system operations are synchronized using a vector of
-            <code>boost::shared_mutex</code> instances — one per inode block. Read-only operations acquire shared locks,
+            The server uses a thread-per-request model. All file system operations are synchronized using a vector 
+            of <code>boost::shared_mutex</code> instances — one per inode block. Read-only operations acquire shared locks,
             while modifying operations acquire exclusive locks. Locks are handed off during path traversal to maximize concurrency
             while maintaining safety.
           </p>

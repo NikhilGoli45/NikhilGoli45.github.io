@@ -70,7 +70,7 @@ export const projects: Project[] = [
   {
     id: "IMC",
     title: "IMC Prosperity",
-    description: "Placed 215th out over 9000 global participants (Top 2%) in both algorithmic and manual trading simulations.",
+    description: "Placed 215th out over 9000 global participants (Top 2.5%) in both algorithmic and manual trading simulations.",
     image: "placeholder",
     technologies: ["Python", "NumPy"],
     demoLink: "",

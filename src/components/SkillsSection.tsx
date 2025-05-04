@@ -44,6 +44,9 @@ const skillCategories: SkillCategory[] = [
       { name: "Scikit-Learn", logo: "icons/sklearn.png" },
       { name: "PyTorch", logo: "icons/pytorch.png" },
       { name: "MatPlotlib", logo: "icons/plot.png" },
+      { name: "Websockets", logo: "icons/ws.svg" },
+      { name: "Boost", logo: "icons/boost.png" },
+      { name: "uWebsockets", logo: "icons/uWS.svg" },
     ],
   },
   {

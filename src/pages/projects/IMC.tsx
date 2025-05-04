@@ -39,7 +39,7 @@ const IMC = () => {
         <section className="mb-10">
           <h2 className="text-2xl font-semibold mb-2">Strategy Overview</h2>
           <p className="text-gray-700 dark:text-gray-400 mb-4">
-            Each product had its own quirks and required tailored strategies. The core file, <code>trader.py</code>, managed product-specific logic and adapted to market conditions per tick. We avoided general templates and instead handcrafted behavior based on observed market patterns.
+            Each product had its own quirks and required tailored strategies. The core file, <code>Trader.py</code>, managed product-specific logic and adapted to market conditions per tick. We avoided general templates and instead handcrafted behavior based on observed market patterns.
           </p>
           <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6">
             <ul className="list-disc list-inside text-gray-700 dark:text-gray-400 space-y-4">
