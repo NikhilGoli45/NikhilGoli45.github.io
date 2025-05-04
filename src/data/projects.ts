@@ -21,15 +21,6 @@ export const projects: Project[] = [
     technologies: ["C++", "Boost"],
     demoLink: "",
     repoLink: "",
-    challenge: "Creating a seamless shopping experience while ensuring secure transactions and efficient product management.",
-    solution: "Implemented a React frontend with Node.js backend, using MongoDB for data storage and Stripe for payment processing.",
-    features: [
-      "User authentication and profile management",
-      "Product catalog with search and filtering",
-      "Shopping cart with persistent storage",
-      "Secure checkout with Stripe integration",
-      "Order history and tracking"
-    ]
   },
   {
     id: "WagerWars",
@@ -39,15 +30,6 @@ export const projects: Project[] = [
     technologies: ["Python", "Django", "TypeScript", "React", "Redis", "PostgreSQL", "AWS"],
     demoLink: "",
     repoLink: "https://github.com/tradersatmichigan/wager-wars",
-    challenge: "Creating a seamless shopping experience while ensuring secure transactions and efficient product management.",
-    solution: "Implemented a React frontend with Node.js backend, using MongoDB for data storage and Stripe for payment processing.",
-    features: [
-      "User authentication and profile management",
-      "Product catalog with search and filtering",
-      "Shopping cart with persistent storage",
-      "Secure checkout with Stripe integration",
-      "Order history and tracking"
-    ]
   },
   {
     id: "OS",
@@ -57,15 +39,6 @@ export const projects: Project[] = [
     technologies: ["C++"],
     demoLink: "",
     repoLink: "",
-    challenge: "Designing an intuitive interface that supports complex task relationships and team collaboration workflows.",
-    solution: "Built a React application with Redux for state management and Firebase for real-time data synchronization across team members.",
-    features: [
-      "Task creation and organization with drag-and-drop functionality",
-      "Deadline management with calendar integration",
-      "Team collaboration with real-time updates",
-      "Progress tracking with visual dashboards",
-      "Notification system for task updates"
-    ]
   },
   {
     id: "DogClassifier",
@@ -75,15 +48,6 @@ export const projects: Project[] = [
     technologies: ["Python", "NumPy", "Pandas", "PyTorch", "Conda"],
     demoLink: "",
     repoLink: "https://github.com/NikhilGoli45/Dog-Breed-Classifier",
-    challenge: "Processing and visualizing complex weather data in a user-friendly format while maintaining performance.",
-    solution: "Developed a JavaScript application that leverages OpenWeatherAPI for data and Chart.js for visualization, with responsive design for all devices.",
-    features: [
-      "Real-time weather updates with auto-refresh",
-      "Location-based forecasts with geolocation",
-      "Historical weather data visualization",
-      "5-day forecast with hourly breakdowns",
-      "Weather alerts and notifications"
-    ]
   },
   {
     id: "SOR",
@@ -93,33 +57,15 @@ export const projects: Project[] = [
     technologies: ["Python", "NumPy", "Pandas", "MatPlotLib"],
     demoLink: "",
     repoLink: "https://github.com/NikhilGoli45/SOR-Backtester",
-    challenge: "Processing and visualizing complex weather data in a user-friendly format while maintaining performance.",
-    solution: "Developed a JavaScript application that leverages OpenWeatherAPI for data and Chart.js for visualization, with responsive design for all devices.",
-    features: [
-      "Real-time weather updates with auto-refresh",
-      "Location-based forecasts with geolocation",
-      "Historical weather data visualization",
-      "5-day forecast with hourly breakdowns",
-      "Weather alerts and notifications"
-    ]
   },
   {
-    id: "Zinger's",
+    id: "ETF",
     title: "Zinger's (ETF Trading Game)",
     description: "A fully-functional closed trading platform developed for the UMich Trading Competition.",
     image: "placeholder",
     technologies: ["C++", "uWebSockets", "TypeScript", "React", "PostgreSQL", "AWS"],
     demoLink: "",
     repoLink: "",
-    challenge: "Creating a visually appealing yet professional portfolio that effectively showcases my work and skills.",
-    solution: "Designed and implemented a responsive React application with TypeScript and Tailwind CSS, focusing on clean code and smooth animations.",
-    features: [
-      "Responsive design for all device sizes",
-      "Light and dark theme support",
-      "Project showcase with detailed case studies",
-      "Interactive skills visualization",
-      "Contact form with email integration"
-    ]
   },
   {
     id: "IMC",
@@ -129,15 +75,6 @@ export const projects: Project[] = [
     technologies: ["Python", "NumPy"],
     demoLink: "",
     repoLink: "https://github.com/NikhilGoli45/LootLake",
-    challenge: "Creating a visually appealing yet professional portfolio that effectively showcases my work and skills.",
-    solution: "Designed and implemented a responsive React application with TypeScript and Tailwind CSS, focusing on clean code and smooth animations.",
-    features: [
-      "Responsive design for all device sizes",
-      "Light and dark theme support",
-      "Project showcase with detailed case studies",
-      "Interactive skills visualization",
-      "Contact form with email integration"
-    ]
   },
   {
     id: "SQL",
@@ -147,15 +84,6 @@ export const projects: Project[] = [
     technologies: ["C++"],
     demoLink: "",
     repoLink: "",
-    challenge: "Creating a visually appealing yet professional portfolio that effectively showcases my work and skills.",
-    solution: "Designed and implemented a responsive React application with TypeScript and Tailwind CSS, focusing on clean code and smooth animations.",
-    features: [
-      "Responsive design for all device sizes",
-      "Light and dark theme support",
-      "Project showcase with detailed case studies",
-      "Interactive skills visualization",
-      "Contact form with email integration"
-    ]
   },
   {
     id: "Forum",
@@ -165,14 +93,5 @@ export const projects: Project[] = [
     technologies: ["C++", "NLP"],
     demoLink: "",
     repoLink: "",
-    challenge: "Creating a visually appealing yet professional portfolio that effectively showcases my work and skills.",
-    solution: "Designed and implemented a responsive React application with TypeScript and Tailwind CSS, focusing on clean code and smooth animations.",
-    features: [
-      "Responsive design for all device sizes",
-      "Light and dark theme support",
-      "Project showcase with detailed case studies",
-      "Interactive skills visualization",
-      "Contact form with email integration"
-    ]
   }
 ];

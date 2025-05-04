@@ -131,7 +131,7 @@ const HeroSection = () => {
       {/* Social Media Icons */}
       <div className="social-icons">
         <a 
-          href="https://linkedin.com" 
+          href="https://www.linkedin.com/in/nikhilgoli/" 
           target="_blank" 
           rel="noopener noreferrer" 
           aria-label="LinkedIn" 
@@ -140,7 +140,7 @@ const HeroSection = () => {
           <Linkedin className="h-5 w-5 transition-all duration-300 group-hover:scale-110" />
         </a>
         <a 
-          href="https://github.com" 
+          href="https://github.com/NikhilGoli45" 
           target="_blank" 
           rel="noopener noreferrer" 
           aria-label="GitHub" 
@@ -149,7 +149,7 @@ const HeroSection = () => {
           <Github className="h-5 w-5 transition-all duration-300 group-hover:scale-110" />
         </a>
         <a 
-          href="mailto:contact@example.com" 
+          href="mailto:ngoli@umich.com" 
           aria-label="Email" 
           className="social-icon-link"
         >

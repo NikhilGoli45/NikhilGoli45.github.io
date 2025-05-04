@@ -8,11 +8,25 @@ import { projects } from "@/data/projects";
 // Import custom pages
 import NFS from "@/pages/projects/NFS";
 import OS from "./projects/OS";
+import WagerWars from "./projects/WagerWars";
+import DogClassifier from "./projects/DogClassifier";
+import SOR from "./projects/SOR";
+import ETF from "./projects/ETF";
+import IMC from "./projects/IMC";
+import SQL from "./projects/SQL";
+import Forum from "./projects/Forum";
 
 // Map project IDs to their custom page components
 const customPages: Record<string, React.FC> = {
   NFS,
   OS,
+  WagerWars,
+  DogClassifier,
+  SOR,
+  ETF,
+  IMC,
+  SQL,
+  Forum
   // Add more custom mappings like "Zingers": ZingersPage if needed
 };
 

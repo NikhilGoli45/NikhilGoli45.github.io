@@ -22,7 +22,14 @@ const ProjectsSection = () => {
 
   const readyProjectIds = [
     "NFS",
-    "OS"
+    "OS",
+    "WagerWars",
+    "DogClassifier",
+    "SOR",
+    "ETF",
+    "IMC",
+    "SQL",
+    "Forum"
   ];
 
   const isProjectReady = (projectId: string) => {
