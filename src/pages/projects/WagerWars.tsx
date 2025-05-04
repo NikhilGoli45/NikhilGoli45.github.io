@@ -22,7 +22,7 @@ const WagerWars = () => {
     { src: "/wager-wars/running-simulation.png", alt: "Running Simulation Screen" },
     { src: "/wager-wars/landing-page.png", alt: "Player Landing Page" },
     { src: "/wager-wars/betting-form.png", alt: "Player Betting Screen" },
-    { src: "/wager-wars/comp.png", alt: "Wager Wars being Played at the UMich Trading Competition" }
+    { src: "/wager-wars/comp.png", alt: "Wager Wars being played at the UMich Trading Competition" }
   ];
 
   return (
@@ -105,7 +105,8 @@ const WagerWars = () => {
         <section className="mb-10">
           <h2 className="text-2xl font-semibold mb-2">Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {screenshots.map(({ src, alt }) => (
+            {screenshots.map(({ src, alt }) => (
+              <div key={src} className="flex flex-col items-center">
                 <div className="relative aspect-video w-full rounded-lg overflow-hidden shadow-lg">
                   <img
                     src={src}
@@ -113,7 +114,11 @@ const WagerWars = () => {
                     className="absolute h-full w-full object-cover"
                   />
                 </div>
-              ))}
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
+                  {alt}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
       </main>
