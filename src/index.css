@@ -181,7 +181,6 @@
 }
 
 .hero-background {
-  background-image: url('/lovable-uploads/1bd9cfa0-74a8-46e0-88af-f4a140a9d276.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -196,7 +195,6 @@
 
 /* Keep dark mode hero as is but change to true black */
 .dark .hero-background {
-  background-image: url('/lovable-uploads/1bd9cfa0-74a8-46e0-88af-f4a140a9d276.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
