@@ -29,7 +29,8 @@ const ProjectsSection = () => {
     "ETF",
     "IMC",
     "SQL",
-    "Forum"
+    "Forum",
+    "NA"
   ];
 
   const isProjectReady = (projectId: string) => {

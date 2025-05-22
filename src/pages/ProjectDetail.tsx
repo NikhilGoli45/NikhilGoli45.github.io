@@ -15,6 +15,7 @@ import ETF from "./projects/ETF";
 import IMC from "./projects/IMC";
 import SQL from "./projects/SQL";
 import Forum from "./projects/Forum";
+import NA from "./projects/NA";
 
 // Map project IDs to their custom page components
 const customPages: Record<string, React.FC> = {
@@ -26,7 +27,8 @@ const customPages: Record<string, React.FC> = {
   ETF,
   IMC,
   SQL,
-  Forum
+  Forum,
+  NA
   // Add more custom mappings like "Zingers": ZingersPage if needed
 };
 

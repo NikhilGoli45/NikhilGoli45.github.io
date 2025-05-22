@@ -14,6 +14,15 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "NA",
+    title: "Networking Automated",
+    description: "A full-stack platform that automates personalized email outreach using OpenAI, Gmail API, and custom scheduling to help users stay connected without the hassle of manual follow-ups.",
+    image: "placeholder",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Express.js", "PostgreSQL", "OpenAI API", "Gmail API"],
+    demoLink: "",
+    repoLink: "https://github.com/NikhilGoli45/networking-automated",
+  },
+  {
     id: "NFS",
     title: "Network File Server",
     description: "A network file server capable of servicing concurrent Create, Delete, Read, and Write requests from multiple remote users.",
