@@ -22,7 +22,7 @@ const NA = () => {
 
         <h1 className="text-4xl font-bold mb-4">Networking Automation Platform</h1>
         <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-            A full-stack platform that automates personalized email outreach using OpenAI, Gmail API, and custom scheduling to help users stay connected without the hassle of manual follow-ups.
+            A full-stack platform that automates personalized email outreach using OpenAI, GCP, and custom scheduling to help users stay connected without the hassle of manual follow-ups.
         </p>
 
         <section className="mb-10">
@@ -56,7 +56,7 @@ const NA = () => {
             <li>The backend parses and stores the tone, style, and content of each message.</li>
             <li>Follow-ups are generated using OpenAI's API to match the original email's tone, style, and content.</li>
             <li>A scheduler dispatches follow-ups on Mondays through Wednesdays, avoiding weekends and spamming.</li>
-            <li>Gmail API with OAuth2 integration is used to send and track emails securely.</li>
+            <li>Gmail API on GCP with OAuth2 integration is used to send and track emails securely.</li>
             <li>Reply detection is built into the backend to suppress future follow-ups if the contact has responded.</li>
           </ul>
         </section>
@@ -86,7 +86,7 @@ const NA = () => {
           <h2 className="text-2xl font-semibold mb-2">Technical Architecture</h2>
           <p className="text-gray-700 dark:text-gray-400 mb-2">
             The system is composed of a modern React frontend (built with Next.js, Tailwind, and Radix UI), a Node.js/Express backend,
-            and a PostgreSQL database hosted on Supabase. Authentication is handled with JWT, and email transmission relies on Gmail OAuth2.
+            and a PostgreSQL database hosted on Supabase. Authentication is handled with JWT, and email transmission relies on GCP OAuth2.
             A GitHub Actions pipeline triggers a secure scheduler daily to ensure emails go out reliably.
           </p>
           <p className="text-gray-700 dark:text-gray-400">
@@ -108,7 +108,7 @@ const NA = () => {
             <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Express.js</span>
             <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Supabase (PostgreSQL)</span>
             <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">OpenAI API</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Gmail API (OAuth2)</span>
+            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">GCP (OAuth2)</span>
             <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">JWT Auth</span>
             <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">GitHub Actions</span>
           </div>
