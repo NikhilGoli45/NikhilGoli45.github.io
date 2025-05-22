@@ -37,6 +37,8 @@ const skillCategories: SkillCategory[] = [
     skills: [
       { name: "React", logo: "icons/react.png" },
       { name: "Node.js", logo: "icons/nodejs.png" },
+      { name: "Next.js", logo: "icons/nextjs.png" },
+      { name: "Express.js", logo: "icons/express.png" },
       { name: "Django", logo: "icons/django.png" },
       { name: "Flask", logo: "icons/flask.png" },
       { name: "Pandas", logo: "icons/pandas.png" },
@@ -56,6 +58,7 @@ const skillCategories: SkillCategory[] = [
       { name: "PostgreSQL", logo: "icons/postgre.png" },
       { name: "SQLite", logo: "icons/sqlite.png" },
       { name: "Redis", logo: "icons/redis.webp" },
+      { name: "Supabase", logo: "icons/supabase.png" },
     ],
   },
   {
@@ -70,7 +73,10 @@ const skillCategories: SkillCategory[] = [
       { name: "Conda", logo: "icons/conda.png" },
       { name: "npm", logo: "icons/npm.png" },
       { name: "AWS", logo: "icons/aws.png" },
+      { name: "GCP", logo: "icons/gcp.png" },
       { name: "Jira", logo: "icons/jira.png" },
+      { name: "JWT", logo: "icons/jwt.png" },
+      { name: "Render", logo: "icons/render.webp" },
     ],
   },
 ];
@@ -118,7 +124,7 @@ const SkillsSection = () => {
           ))}
         </div>
 
-        <div className="mt-10 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
+        {/* <div className="mt-10 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
           <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
             <Globe className="w-5 h-5 text-primary" />
             Additional Skills
@@ -143,7 +149,7 @@ const SkillsSection = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
