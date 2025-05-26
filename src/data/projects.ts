@@ -18,7 +18,7 @@ export const projects: Project[] = [
     title: "Networking Automated",
     description: "A full-stack platform that automates personalized email outreach using OpenAI, GCP, and custom scheduling to help users stay connected without the hassle of manual follow-ups.",
     image: "placeholder",
-    technologies: ["TypeScript", "Next.js", "Tailwind CSS", "Node.js", "Express.js", "PostgreSQL", "OpenAI API", "GCP"],
+    technologies: ["Next.js", "Tailwind CSS", "Node.js", "Express.js", "PostgreSQL", "OpenAI API", "GCP"],
     demoLink: "",
     repoLink: "https://github.com/NikhilGoli45/networking-automated",
   },

@@ -100,7 +100,8 @@ const NA = () => {
             <h2 className="text-2xl font-semibold mb-2">Technologies Used</h2>
             <div className="flex flex-wrap gap-2">
                 {/* Language */}
-                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">TypeScript</span>
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">JavaScript (Backend)</span>
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">TypeScript (Frontend)</span>
 
                 {/* Frontend */}
                 <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Next.js</span>
