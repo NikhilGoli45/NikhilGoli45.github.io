@@ -97,21 +97,32 @@ const NA = () => {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-2">Technologies Used</h2>
-          <div className="flex flex-wrap gap-2">
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Next.js</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">TypeScript</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Tailwind CSS</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Radix UI</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">React Context</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Node.js</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Express.js</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Supabase (PostgreSQL)</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">OpenAI API</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">GCP (OAuth2)</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">JWT Auth</span>
-            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">GitHub Actions</span>
-          </div>
+            <h2 className="text-2xl font-semibold mb-2">Technologies Used</h2>
+            <div className="flex flex-wrap gap-2">
+                {/* Language */}
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">TypeScript</span>
+
+                {/* Frontend */}
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Next.js</span>
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">React</span>
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Tailwind CSS</span>
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Radix UI</span>
+
+                {/* Backend */}
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Node.js</span>
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Express.js</span>
+
+                {/* Database */}
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">Supabase (PostgreSQL)</span>
+
+                {/* APIs / Auth */}
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">OpenAI API</span>
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">GCP (OAuth2)</span>
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">JWT Auth</span>
+
+                {/* DevOps / Infra */}
+                <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-sm rounded-full">GitHub Actions</span>
+            </div>
         </section>
       </main>
       <Footer />
