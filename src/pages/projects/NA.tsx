@@ -28,7 +28,7 @@ const NA = () => {
         <section className="mb-10">
           <h2 className="text-2xl font-semibold mb-2">Background</h2>
           <p className="text-gray-700 dark:text-gray-400">
-            Last summer, I was determined to expand my professional network—but keeping track of who I'd emailed, who responded,
+            Last summer, I was determined to expand my professional network, but keeping track of who I'd emailed, who responded,
             and when to follow up quickly became overwhelming. The friction slowed me down and diluted my efforts. This year, I decided to
             solve that problem for good. I built a system that allows me to focus purely on finding interesting people and having real
             conversations, while everything else is handled by the platform.
@@ -64,7 +64,7 @@ const NA = () => {
         <section className="mb-5">
             <h2 className="text-2xl font-semibold mb-2">Dashboard Overview</h2>
             <p className="text-gray-700 dark:text-gray-400 mb-4">
-                The platform includes a clean, user-friendly dashboard for managing contacts, viewing outreach history, and manually running the follow-up scheduler. Each contact entry displays email status, original outreach, and how many follow-ups have been sent—so you always have visibility into your networking efforts.
+                The platform includes a clean, user-friendly dashboard for managing contacts, viewing outreach history, and manually running the follow-up scheduler. Each contact entry displays email status, original outreach, and how many follow-ups have been sent providing visibility into your networking efforts.
             </p>
             <div className="mt-6 flex justify-center">
                 <div className="flex flex-col items-center w-full md:w-[36rem]">
