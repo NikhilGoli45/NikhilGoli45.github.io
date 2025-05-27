@@ -54,7 +54,7 @@ const EducationSection = () => {
         <div className="flex flex-col items-center">
           <Card className="w-full max-w-3xl bg-white dark:bg-gray-800 shadow-md">
             <CardHeader className="flex flex-row items-center gap-4">
-              <img src="Mlogo.png" className="h-12 w-auto object-contain" alt="University of Michigan logo" />
+              <img src="icons/Mlogo.png" className="h-12 w-auto object-contain" alt="University of Michigan logo" />
               <div className="space-y-1">
                 <CardTitle className="text-xl">{education.university}</CardTitle>
                 <CardDescription>{education.degree}</CardDescription>
