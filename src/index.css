@@ -166,7 +166,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 1;
   overflow: hidden;
   pointer-events: none;
 }
@@ -178,6 +178,7 @@
   font-size: 1.2rem;
   animation: binaryFade 3s infinite;
   user-select: none;
+  pointer-events: none;
 }
 
 .hero-background {
@@ -215,9 +216,10 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  z-index: 10;
+  z-index: 20;
   /* Default to hidden */
   visibility: hidden;
+  pointer-events: auto;
 }
 
 /* Make visible only when inside the hero section */
@@ -261,7 +263,7 @@
   height: 100%;
   border-radius: 50%;
   background: rgba(79, 129, 251, 0.3);
-  z-index: -1;
+  z-index: 0;
   animation: pulse 1.5s infinite;
 }
 

@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import { Linkedin, Github, Mail } from "lucide-react";
 import { useTheme } from "../hooks/useTheme";
@@ -129,7 +128,7 @@ const HeroSection = () => {
       <BinaryBackground />
       
       {/* Social Media Icons */}
-      <div className="social-icons">
+      <div className="social-icons relative z-20">
         <a 
           href="https://www.linkedin.com/in/nikhilgoli/" 
           target="_blank" 
