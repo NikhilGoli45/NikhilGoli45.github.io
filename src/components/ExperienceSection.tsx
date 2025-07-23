@@ -5,6 +5,28 @@ import { Briefcase, Calendar } from "lucide-react";
 
 const experiences = [
   {
+    title: "Software Engineering Intern",
+    company: "a0.dev (YC 25)",
+    period: "Jul 2025 -  Present",
+    description: "Building out an LLM evaluation framework from scratch and optimizing product performance.",
+    achievements: [
+      "Enabled AI agents to detect and resolve errors without manual prompts by automatically ingesting and analyzing build and runtime logs, reducing API calls by 15% and preserving users' daily request limits",
+      "Identified synchronous localStorage calls as a bottleneck via Chrome DevTools, then leveraged IndexedDB's async APIs to cut main-thread blocking from 1000ms to 300ms (70%) and boost overall site performance by 30%",
+    ],
+    skills: ["TypeScript", "React", "Next.js", "Chrome DevTools", "Mastra", "AWS"]
+  },
+  {
+    title: "Applied AI Engineering Intern",
+    company: "Swept AI",
+    period: "May 2025 - Jun 2025",
+    description: "Built AI Agents using local LLMs with Ollama and LangChain to automate complex tasks and save costs.",
+    achievements: [
+      "Built a multi-agent research system with dynamic workflows, allowing a single query to generate multiple structured reports, increasing throughput 4-5x and eliminating the need for manual re-prompting",
+      "Optimized a memory-aware RAG pipeline by asynchronously precomputing context for background relevance scoring and embedding retrieval, reducing first-token latency by ~60% in large conversations",
+    ],
+    skills: ["Python", "Langchain", "LangGraph", "Ollama", "RAG"]
+  },
+  {
     title: "Technical Strategy Intern",
     company: "Mercedes-Benz Financial Services",
     period: "May 2024 - Aug 2024",
