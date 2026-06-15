@@ -132,7 +132,7 @@ const ExperienceSection = () => {
 
   if (useStaticLayout) {
     return (
-      <SectionWrapper id="experience" number="02" label="Experience">
+      <SectionWrapper id="experience">
         {staticList}
       </SectionWrapper>
     );
@@ -143,8 +143,6 @@ const ExperienceSection = () => {
       <div ref={outerRef}>
         <SectionWrapper
           ref={pinRef}
-          number="02"
-          label="Experience"
           className="h-screen overflow-x-visible overflow-y-hidden !py-0"
         >
           <div className="grid grid-cols-12 h-full pt-20 pb-12">

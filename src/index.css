@@ -150,6 +150,11 @@
   will-change: transform;
 }
 
+/* ── About scroll-pinned reveal ── */
+.about-reveal-item {
+  will-change: transform, opacity, filter;
+}
+
 /* ── Caption utility ── */
 .caption {
   font-family: 'Inter', sans-serif;

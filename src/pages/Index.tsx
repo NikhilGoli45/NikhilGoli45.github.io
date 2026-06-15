@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -9,21 +10,21 @@ import SkillsSection from "@/components/SkillsSection";
 import EducationSection from "@/components/EducationSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import { scrollToSection } from "@/utils/scrollToSection";
 
 const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
     const hash = location.hash.replace("#", "");
-    if (hash) {
+    if (!hash) return;
+
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
       requestAnimationFrame(() => {
-        const el = document.getElementById(hash);
-        if (el) {
-          const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
-          window.scrollTo({ top: y, behavior: "smooth" });
-        }
+        scrollToSection(hash);
       });
-    }
+    });
   }, [location]);
 
   return (

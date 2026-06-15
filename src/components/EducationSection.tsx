@@ -34,7 +34,7 @@ const EducationSection = () => {
   const sectionRef = useGSAPReveal(0.1) as React.RefObject<HTMLElement>;
 
   return (
-    <SectionWrapper ref={sectionRef} id="education" number="05" label="Education">
+    <SectionWrapper ref={sectionRef} id="education">
       <div className="gsap-reveal flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-10">
         <h2 className="font-display text-h1 text-foreground leading-none tracking-tight">
           {education.university}

@@ -47,7 +47,7 @@ const ContactSection = () => {
   };
 
   return (
-    <SectionWrapper ref={sectionRef} id="contact" number="06" label="Contact">
+    <SectionWrapper ref={sectionRef} id="contact">
       {/* Bold closing statement */}
       <div className="gsap-reveal mb-16">
         <h2 className="font-display text-display text-foreground leading-none tracking-tight">

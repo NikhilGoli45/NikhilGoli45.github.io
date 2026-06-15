@@ -24,7 +24,7 @@ const SkillsSection = () => {
   const sectionRef = useGSAPReveal(0.1) as React.RefObject<HTMLElement>;
 
   return (
-    <SectionWrapper ref={sectionRef} id="skills" number="04" label="Skills">
+    <SectionWrapper ref={sectionRef} id="skills">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
         {skillCategories.map((category, i) => (
           <div key={i} className="gsap-reveal">

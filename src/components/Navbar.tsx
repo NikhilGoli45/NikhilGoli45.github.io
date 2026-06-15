@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { NAV_OFFSET, scrollToSection as scrollToSectionTarget } from "@/utils/scrollToSection";
 
 const navItems = [
   { label: "01 About", id: "about" },
@@ -9,8 +10,6 @@ const navItems = [
   { label: "04 Skills", id: "skills" },
   { label: "05 Contact", id: "contact" },
 ];
-
-const NAV_OFFSET = 80;
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -105,11 +104,7 @@ const Navbar = () => {
           });
         }
       });
-      const el = document.getElementById(id);
-      if (el) {
-        const y = el.getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
+      scrollToSectionTarget(id);
       setMobileMenuOpen(false);
     } else {
       navigate(`/#${id}`);
