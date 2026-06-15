@@ -1,62 +1,52 @@
-
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { useRef } from "react";
+import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { useGSAPReveal } from "@/hooks/useGSAPReveal";
 
 const AboutSection = () => {
+  const sectionRef = useGSAPReveal(0.12) as React.RefObject<HTMLElement>;
+
   return (
-    <section id="about" className="py-20 bg-secondary/50">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row gap-12 items-center">
-          <div className="w-full md:w-5/12">
-            <div className="relative">
-              <div className="aspect-square bg-gray-200 dark:bg-gray-800 rounded-2xl overflow-hidden">
-                {/* Replace with your image */}
-                <div className="h-full w-full flex items-center justify-center text-gray-400">
-                  <img src="Headshot.jpg"></img>
-                </div>
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-primary text-white p-4 rounded-lg shadow-lg">
-                <Badge className="text-lg font-medium px-3 py-1">
-                  Available for work
-                </Badge>
-              </div>
+    <SectionWrapper ref={sectionRef} id="about" number="01" label="About">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        {/* Pull quote — spans 7 cols */}
+        <div className="lg:col-span-7">
+          <p className="gsap-reveal font-display text-h2 text-foreground leading-tight tracking-tight mb-10">
+            I build high-performance systems — from OS kernels and trading platforms to full-stack web apps and ML models.
+          </p>
+          <p className="gsap-reveal font-sans text-base text-muted-foreground leading-relaxed mb-4 max-w-xl">
+            I'm a software engineer at Applied Intuition 
+            with a passion for solving complex problems, moving quickly, and continuously learning.
+          </p>
+          <p className="gsap-reveal font-sans text-base text-muted-foreground leading-relaxed max-w-xl">
+            When I'm not coding, you can find me playing soccer, listening to music, or going to car meets.
+          </p>
+
+          <div className="gsap-reveal mt-10 grid grid-cols-2 gap-x-12 gap-y-6 border-t border-border pt-8 max-w-xl">
+            <div>
+              <span className="caption block mb-1">Education</span>
+              <p className="font-sans text-sm text-foreground">B.S. Computer Science</p>
+              <p className="caption text-muted-foreground">University of Michigan · 2022–2026</p>
             </div>
-          </div>
-          
-          <div className="w-full md:w-7/12">
-            <h2 className="text-3xl font-bold mb-6">About Me</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-            I'm a Computer Science and Math of Finance student at the University of Michigan 
-            with a passion for building high-performance, reliable systems. I've developed 
-            everything from real-time trading platforms and OS kernels to full-stack web apps 
-            and machine learning models. I enjoy solving complex problems, moving quickly, and 
-            continuously learning.
-            </p>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-              When I'm not coding, you can find me playing soccer, listening to music, or going to car meets!
-            </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold mb-2">Education</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Bachelor's in Computer Science and Mathematics</p>
-                  <p className="text-sm text-gray-500">University of Michigan, 2022-2026</p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold mb-2">Location</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Novi, MI</p>
-                  <p className="text-sm text-gray-500">Open to remote opportunities and willing to relocate</p>
-                </CardContent>
-              </Card>
+            <div>
+              <span className="caption block mb-1">Location</span>
+              <p className="font-sans text-sm text-foreground">Sunnyvale, CA</p>
+              {/* <p className="caption text-muted-foreground">Open to relocation &amp; remote</p> */}
             </div>
           </div>
         </div>
+
+        {/* Headshot — spans 5 cols, editorial crop */}
+        <div className="gsap-reveal lg:col-span-5">
+          <div className="relative overflow-hidden" style={{ aspectRatio: "4/5" }}>
+            <img
+              src="/Headshot.jpg"
+              alt="Nikhil Goli"
+              className="w-full h-full object-cover grayscale"
+            />
+          </div>
+        </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 };
 

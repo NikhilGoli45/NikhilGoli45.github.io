@@ -1,32 +1,38 @@
-
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Sun, Moon } from "lucide-react";
-import { useTheme } from "../hooks/useTheme";
+import { Menu, X } from "lucide-react";
+
+const navItems = [
+  { label: "01 About", id: "about" },
+  { label: "02 Experience", id: "experience" },
+  { label: "03 Projects", id: "projects" },
+  { label: "04 Skills", id: "skills" },
+  { label: "05 Contact", id: "contact" },
+];
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [visible, setVisible] = useState(true);
+  const [lastY, setLastY] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const y = window.scrollY;
+      setVisible(y < lastY || y < 80);
+      setLastY(y);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastY]);
 
   const scrollToSection = (id: string) => {
     if (isHome) {
-      const element = document.getElementById(id);
-      if (element) {
-        const yOffset = -70;
-        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const el = document.getElementById(id);
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
         window.scrollTo({ top: y, behavior: "smooth" });
       }
       setMobileMenuOpen(false);
@@ -35,86 +41,57 @@ const Navbar = () => {
     }
   };
 
-  // Determine text color based on theme and scroll state
-  const textColor = theme === "dark" 
-    ? "text-white" 
-    : isScrolled ? "text-white" : "text-black";
-
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/50 backdrop-blur-md shadow-sm" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
+        visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a 
-          href="#" 
-          className={`text-xl font-bold ${textColor}`}
-          onClick={(e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+      <div className="px-6 md:px-12 lg:px-20 py-6 flex justify-between items-center">
+        {/* Wordmark */}
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="font-display text-sm tracking-widest text-foreground uppercase link-underline"
         >
-          NIKHIL GOLI
-        </a>
+          NG
+        </button>
 
-        {/* Desktop Menu */}
+        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {["home", "about", "education", "experience", "projects", "skills"].map((item) => (
+          {navItems.map(({ label, id }) => (
             <button
-              key={item}
-              onClick={() => scrollToSection(item === "home" ? "hero" : item)}
-              className={`${textColor} hover:opacity-70 font-medium capitalize transition-colors`}
+              key={id}
+              onClick={() => scrollToSection(id)}
+              className="caption text-foreground hover:text-muted-foreground transition-colors link-underline"
             >
-              {item}
+              {label}
             </button>
           ))}
-          <Button 
-            size="icon" 
-            variant="ghost" 
-            className={textColor}
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </Button>
         </nav>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center gap-2">
-          <Button 
-            size="icon" 
-            variant="ghost" 
-            className={textColor}
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className={textColor}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </Button>
-        </div>
+        {/* Mobile toggle */}
+        <button
+          className="md:hidden text-foreground"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-black/90 shadow-lg animate-in">
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
-            {["home", "about", "education", "experience", "projects", "skills"].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item === "home" ? "hero" : item)}
-                className="text-white hover:text-gray-300 font-medium capitalize py-2 transition-colors"
-              >
-                {item}
-              </button>
-            ))}
-          </nav>
-        </div>
+        <nav className="md:hidden bg-background border-t border-border px-6 py-6 flex flex-col gap-5">
+          {navItems.map(({ label, id }) => (
+            <button
+              key={id}
+              onClick={() => scrollToSection(id)}
+              className="caption text-foreground text-left"
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
       )}
     </header>
   );

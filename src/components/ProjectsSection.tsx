@@ -1,181 +1,108 @@
-import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, ArrowRight } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/data/projects";
+import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi,
-} from "@/components/ui/carousel";
+gsap.registerPlugin(ScrollTrigger);
+
+const readyProjectIds = ["NFS", "OS", "WagerWars", "DogClassifier", "SOR", "ETF", "IMC", "SQL", "Forum", "NA"];
 
 const ProjectsSection = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const outerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  const readyProjectIds = [
-    "NFS",
-    "OS",
-    "WagerWars",
-    "DogClassifier",
-    "SOR",
-    "ETF",
-    "IMC",
-    "SQL",
-    "Forum",
-    "NA"
-  ];
-
-  const isProjectReady = (projectId: string) => {
-    return readyProjectIds.includes(projectId);
-  };
-  
   useEffect(() => {
-    setIsMounted(true);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const outer = outerRef.current;
+    const track = trackRef.current;
+    if (!outer || !track) return;
+
+    // Only apply horizontal scroll on md+ screens
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
+      const totalWidth = track.scrollWidth - outer.offsetWidth;
+
+      const tween = gsap.to(track, {
+        x: -totalWidth,
+        ease: "none",
+        scrollTrigger: {
+          trigger: outer,
+          start: "top top",
+          end: () => `+=${totalWidth}`,
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      return () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      };
+    });
+
+    return () => mm.revert();
   }, []);
 
-  useEffect(() => {
-    if (!carouselApi) return;
-
-    const onSelect = () => {
-      setActiveIndex(carouselApi.selectedScrollSnap());
-    };
-
-    carouselApi.on("select", onSelect);
-    onSelect();
-
-    return () => {
-      carouselApi.off("select", onSelect);
-    };
-  }, [carouselApi]);
-
   return (
-    <section id="projects" className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12 fade-in">
-          <h2 className="text-3xl font-bold mb-4">My Projects</h2>
-        </div>
-
-        <div className="max-w-6xl mx-auto relative overflow-visible">
-          {isMounted && (
-            <Carousel
-              opts={{
-                align: "center",
-                loop: true,
-              }}
-              setApi={setCarouselApi}
-              className="w-full"
-            >
-              <CarouselContent>
-                {projects.map((project, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="basis-[80%] sm:basis-[60%] md:basis-[50%] lg:basis-[40%] px-4"
-                  >
-                    <Card className="h-full flex flex-col transition-transform duration-300 hover:-translate-y-2">
-                      <CardContent className="p-6 flex flex-col flex-grow">
-                        <h3 className="text-xl font-semibold mb-2">
-                          {project.title}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow">
-                          {project.description}
-                        </p>
-
-                        <div className="space-y-4 mt-auto">
-                          <div className="flex flex-wrap gap-2">
-                            {project.technologies.map((tech, i) => (
-                              <Badge key={i} variant="outline">
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-
-                          <div className="flex flex-wrap gap-3 justify-between items-center">
-                            {project.demoLink && (
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                className="flex gap-2 items-center"
-                                asChild
-                              >
-                                <a
-                                  href={project.demoLink}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  <ExternalLink className="w-4 h-4" />
-                                  <span>Live Demo</span>
-                                </a>
-                              </Button>
-                            )}
-
-                            {project.repoLink && (
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                className="flex gap-2 items-center"
-                                asChild
-                              >
-                                <a
-                                  href={project.repoLink}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  <Github className="w-4 h-4" />
-                                  <span>Source Code</span>
-                                </a>
-                              </Button>
-                            )}
-
-                            <Button
-                              size="sm"
-                              className="flex gap-2 items-center ml-auto"
-                              asChild
-                            >
-                              <Link to={isProjectReady(project.id) ? `/projects/${project.id}` : "/projects/not-ready"}>
-                                <span>Details</span>
-                                <ArrowRight className="w-3 h-3" />
-                              </Link>
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-
-              {/* Carousel Navigation Arrows */}
-              <CarouselPrevious className="absolute -left-6 top-1/2 -translate-y-1/2 z-20" />
-              <CarouselNext className="absolute -right-6 top-1/2 -translate-y-1/2 z-20" />
-            </Carousel>
-          )}
-
-          {/* Dot Indicators */}
-          <div className="flex justify-center gap-2 mt-6">
-            {projects.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => carouselApi?.scrollTo(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === activeIndex
-                    ? "bg-primary scale-125"
-                    : "bg-primary/30"
-                }`}
-                aria-label={`Go to project ${index + 1}`}
-              />
-            ))}
-          </div>
+    <>
+      {/* Section header outside the pinned area */}
+      <div className="px-6 md:px-12 lg:px-20 pt-24 md:pt-32 lg:pt-40 pb-12 border-t border-border">
+        <div className="flex items-baseline justify-between">
+          <h2 className="font-display text-h1 text-foreground leading-none tracking-tight">Projects</h2>
+          <span className="caption text-muted-foreground">03 · {projects.length} works</span>
         </div>
       </div>
-    </section>
+
+      {/* Pinned horizontal scroll container */}
+      <div ref={outerRef} id="projects" className="overflow-hidden">
+        <div ref={trackRef} className="h-scroll-track">
+          {projects.map((project, i) => {
+            const to = readyProjectIds.includes(project.id)
+              ? `/projects/${project.id}`
+              : "/projects/not-ready";
+
+            return (
+              <Link
+                key={project.id}
+                to={to}
+                className="group flex-shrink-0 w-[85vw] md:w-[55vw] lg:w-[45vw] h-[70vh] md:h-screen flex flex-col justify-between px-8 md:px-12 py-12 border-l border-border bg-background hover:bg-secondary transition-colors duration-300"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="caption text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="caption text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
+                    View →
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="font-display text-h2 text-foreground leading-tight tracking-tight mb-4 group-hover:opacity-70 transition-opacity">
+                    {project.title}
+                  </h3>
+                  <p className="font-sans text-sm text-muted-foreground leading-relaxed max-w-sm mb-6">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech, j) => (
+                      <span key={j} className="caption border border-border px-2 py-0.5 text-muted-foreground">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Mobile fallback: stacked cards (hidden on md+) */}
+      {/* The above already works on mobile via normal overflow, no extra markup needed */}
+    </>
   );
 };
 
