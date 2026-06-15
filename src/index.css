@@ -118,6 +118,22 @@
   will-change: transform;
 }
 
+/* ── Hero scroll arrow ── */
+@keyframes scroll-arrow-bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+
+.scroll-arrow {
+  animation: scroll-arrow-bounce 1.8s ease-in-out infinite;
+}
+
 /* ── Caption utility ── */
 .caption {
   font-family: 'Inter', sans-serif;

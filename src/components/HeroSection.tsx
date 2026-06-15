@@ -15,19 +15,19 @@ const HeroSection = () => {
     tl.fromTo(nameRef.current, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1 })
       .fromTo(subRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, "-=0.4")
       .fromTo(linksRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, "-=0.3")
-      .fromTo(indicatorRef.current, { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.2");
+      .fromTo(indicatorRef.current, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, "-=0.2");
   }, []);
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-between px-6 md:px-12 lg:px-20 py-32 overflow-hidden"
+      className="relative min-h-screen flex flex-col px-6 md:px-12 lg:px-20 pt-28 md:pt-32 pb-6 md:pb-10 overflow-hidden"
     >
       <HeroGridBackground />
 
-      <div className="relative z-10 flex flex-col justify-between flex-1">
-        {/* Main name block */}
-        <div className="mt-auto">
+      <div className="relative z-10 flex flex-col flex-1 min-h-0">
+        {/* Main name block — vertically centered above bottom content */}
+        <div className="flex-1 flex items-center">
           <h1
             ref={nameRef}
             className="font-display text-display text-foreground leading-none tracking-tight uppercase"
@@ -37,8 +37,29 @@ const HeroSection = () => {
           </h1>
         </div>
 
-        {/* Role + links row */}
-        <div className="mt-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        {/* Scroll indicator — centered */}
+        <div
+          ref={indicatorRef}
+          className="flex flex-col items-center gap-2 self-center mb-10 md:mb-14"
+          style={{ opacity: 0 }}
+        >
+          <span className="caption">Scroll</span>
+          <svg
+            className="scroll-arrow w-4 h-4 text-muted-foreground"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 5v14M6 13l6 6 6-6" />
+          </svg>
+        </div>
+
+        {/* Role + links — anchored to bottom */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <p
             ref={subRef}
             className="caption text-muted-foreground max-w-xs"
@@ -76,16 +97,6 @@ const HeroSection = () => {
               Email
             </a>
           </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div
-          ref={indicatorRef}
-          className="mt-12 flex items-center gap-3"
-          style={{ opacity: 0 }}
-        >
-          <div className="w-6 h-px bg-muted-foreground" />
-          <span className="caption">Scroll</span>
         </div>
       </div>
     </section>
