@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { useExperienceScrollPin } from "@/hooks/useExperienceScrollPin";
+import { scrollToExperienceCard } from "@/utils/scrollToSection";
 
 const experiences = [
   {
@@ -170,12 +171,23 @@ const ExperienceSection = () => {
                   </div>
                 </div>
                 {experiences.map((exp, i) => (
-                  <div key={i} className="relative flex items-center gap-4 z-10">
-                    <div className="experience-timeline-dot w-[15px] h-[15px] rounded-full border border-foreground bg-background flex-shrink-0" />
-                    <span className="experience-timeline-label caption whitespace-nowrap">
-                      {exp.period}
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => scrollToExperienceCard(i, experiences.length)}
+                    aria-label={`View ${exp.company}, ${exp.period}`}
+                    className="relative flex items-center gap-4 z-10 text-left cursor-pointer rounded-sm -ml-2 pl-2 py-1.5 pr-2 transition-colors hover:bg-muted/20 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+                  >
+                    <div className="experience-timeline-dot w-[15px] h-[15px] rounded-full border border-foreground bg-background flex-shrink-0 pointer-events-none" />
+                    <span className="flex flex-col gap-1 max-w-[11rem] pointer-events-none">
+                      <span className="experience-timeline-label caption whitespace-nowrap uppercase tracking-widest">
+                        {exp.period}
+                      </span>
+                      <span className="experience-timeline-company font-sans text-xs text-muted-foreground leading-snug line-clamp-2">
+                        {exp.company}
+                      </span>
                     </span>
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>

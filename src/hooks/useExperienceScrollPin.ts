@@ -111,6 +111,7 @@ function applyScrollProgress(
   cards: HTMLDivElement[],
   dots: HTMLDivElement[],
   labels: HTMLSpanElement[],
+  companies: HTMLSpanElement[],
   progressEl: HTMLDivElement | null,
   count: number
 ) {
@@ -148,6 +149,11 @@ function applyScrollProgress(
     const active = focusedIndex !== null && i === focusedIndex;
     gsap.set(label, { opacity: active ? 1 : 0.35 });
   });
+
+  companies.forEach((company, i) => {
+    const active = focusedIndex !== null && i === focusedIndex;
+    gsap.set(company, { opacity: active ? 1 : 0.35 });
+  });
 }
 
 export function useExperienceScrollPin(refs: ExperienceScrollPinRefs) {
@@ -165,6 +171,7 @@ export function useExperienceScrollPin(refs: ExperienceScrollPinRefs) {
     const cards = pin.querySelectorAll<HTMLDivElement>(".experience-card");
     const dots = pin.querySelectorAll<HTMLDivElement>(".experience-timeline-dot");
     const labels = pin.querySelectorAll<HTMLSpanElement>(".experience-timeline-label");
+    const companies = pin.querySelectorAll<HTMLSpanElement>(".experience-timeline-company");
 
     if (cards.length !== count) return;
 
@@ -177,6 +184,7 @@ export function useExperienceScrollPin(refs: ExperienceScrollPinRefs) {
           [...cards],
           [...dots],
           [...labels],
+          [...companies],
           progress,
           count
         );

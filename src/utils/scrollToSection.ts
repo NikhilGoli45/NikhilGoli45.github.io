@@ -25,6 +25,40 @@ export function getSectionScrollTop(sectionId: string): number | null {
   return element.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
 }
 
+export function getExperienceCardScrollTop(
+  index: number,
+  count: number
+): number | null {
+  ScrollTrigger.refresh();
+  const st = ScrollTrigger.getById("experience-pin");
+  if (!st) return null;
+
+  const progress = count > 1 ? index / (count - 1) : 0;
+  return st.start + progress * (st.end - st.start);
+}
+
+export function scrollToExperienceCard(
+  index: number,
+  count: number,
+  behavior: ScrollBehavior = "smooth"
+) {
+  const attempt = (retries = 0) => {
+    ScrollTrigger.refresh();
+    const st = ScrollTrigger.getById("experience-pin");
+
+    if (!st && document.getElementById("experience") && retries < 12) {
+      requestAnimationFrame(() => attempt(retries + 1));
+      return;
+    }
+
+    const top = getExperienceCardScrollTop(index, count);
+    if (top === null) return;
+    window.scrollTo({ top, behavior });
+  };
+
+  attempt();
+}
+
 export function scrollToSection(sectionId: string, behavior: ScrollBehavior = "smooth") {
   const attempt = (retries = 0) => {
     ScrollTrigger.refresh();
