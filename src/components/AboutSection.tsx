@@ -38,13 +38,14 @@ const AboutContent = ({ variant }: AboutContentProps) => {
           className={`${revealClass} font-sans text-base text-muted-foreground leading-relaxed mb-4 max-w-xl`}
           {...reveal(1, "slide-left", 0)}
         >
-          I'm a software engineer at Applied Intuition with a passion for solving complex problems, moving quickly, and continuously learning.
+          I'm a recent graduate from the Univeristy of Michigan working as a software engineer at Applied Intuition
+          with a passion for solving complex problems, moving quickly, and continuously learning.
         </p>
         <p
           className={`${revealClass} font-sans text-base text-muted-foreground leading-relaxed max-w-xl`}
           {...reveal(1, "fade-up-soft", 1)}
         >
-          When I'm not coding, you can find me playing soccer, listening to music, or going to car meets.
+          When I'm not coding, you can find me playing soccer, working out, or taking pictures.
         </p>
 
         <div className="mt-10 border-t border-border pt-8 max-w-xl">
@@ -52,7 +53,8 @@ const AboutContent = ({ variant }: AboutContentProps) => {
             <div className={revealClass} {...reveal(1, "scale-in", 2)}>
               <span className="caption block mb-1">Education</span>
               <p className="font-sans text-sm text-foreground">B.S. Computer Science</p>
-              <p className="caption text-muted-foreground">University of Michigan · 2022–2026</p>
+              <p className="caption text-muted-foreground">University of Michigan</p>
+              <p className="caption text-muted-foreground">2022–2026</p>
             </div>
             <div className={revealClass} {...reveal(1, "scale-in", 3)}>
               <span className="caption block mb-1">Location</span>
