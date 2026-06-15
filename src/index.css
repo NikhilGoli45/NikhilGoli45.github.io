@@ -134,6 +134,22 @@
   animation: scroll-arrow-bounce 1.8s ease-in-out infinite;
 }
 
+/* ── Experience scroll-pinned timeline ── */
+.experience-card-track {
+  overflow: visible;
+}
+
+.experience-card {
+  will-change: transform, opacity;
+  padding-left: 3rem;
+  margin-left: -3rem;
+}
+
+.experience-timeline-progress {
+  transform-origin: top;
+  will-change: transform;
+}
+
 /* ── Caption utility ── */
 .caption {
   font-family: 'Inter', sans-serif;
