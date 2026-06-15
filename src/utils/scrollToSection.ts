@@ -11,6 +11,14 @@ export function getSectionScrollTop(sectionId: string): number | null {
     }
   }
 
+  if (sectionId === "experience") {
+    ScrollTrigger.refresh();
+    const st = ScrollTrigger.getById("experience-pin");
+    if (st) {
+      return st.start;
+    }
+  }
+
   const element = document.getElementById(sectionId);
   if (!element) return null;
 

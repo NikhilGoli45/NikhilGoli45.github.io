@@ -143,20 +143,19 @@ const ExperienceSection = () => {
       <div ref={outerRef}>
         <SectionWrapper
           ref={pinRef}
-          className="h-screen overflow-x-visible overflow-y-hidden !py-0"
+          className="h-screen overflow-x-visible overflow-y-visible !py-0"
         >
           <div className="grid grid-cols-12 h-full pt-20 pb-12">
-            <div className="experience-card-track col-span-12 lg:col-span-8 relative h-full">
-              {experiences.map((exp, i) => (
-                <div
-                  key={i}
-                  className="experience-card absolute inset-0 flex flex-col justify-center"
-                >
-                  <div className="max-w-3xl w-full border border-border px-6 md:px-8 py-10">
-                    <ExperienceEntry exp={exp} showPeriod={false} />
+            <div className="experience-card-track col-span-12 lg:col-span-8 h-full">
+              <div className="experience-carousel-hub relative h-full">
+                {experiences.map((exp, i) => (
+                  <div key={i} className="experience-card -translate-x-1/2 -translate-y-1/2">
+                    <div className="w-full border border-border px-6 md:px-8 py-10 bg-background">
+                      <ExperienceEntry exp={exp} showPeriod={false} />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             <div className="hidden lg:flex lg:col-span-4 lg:col-start-9 relative h-full items-stretch justify-center">

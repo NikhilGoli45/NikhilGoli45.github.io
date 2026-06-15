@@ -7,9 +7,15 @@ gsap.registerPlugin(ScrollTrigger);
 const reducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const ENTER_END = 0.3;
-const HOLD_END = 0.7;
-const SLIDE_OFFSET = 56;
+const MIN_SCALE = 0.94;
+const MAX_SCALE = 1;
+const ARC_SPAN_DEG = 22;
+const HOLD_ZONE = 0.22;
+const TRANSITION_Y_PUSH = 0.08;
+// Brief plateau at each card focus while scroll continues smoothly
+const LOCK_FRACTION = 0.12;
+// Timeline highlights only when a card is seated at 3 o'clock
+const FOCUS_THRESHOLD = 0.08;
 
 interface ExperienceScrollPinRefs {
   outerRef: RefObject<HTMLDivElement | null>;
@@ -18,51 +24,128 @@ interface ExperienceScrollPinRefs {
   count: number;
 }
 
+function getWheelRadius(): number {
+  return Math.max(window.innerHeight * 1.45, 1100);
+}
+
+function getWheelGeometry() {
+  const radius = getWheelRadius();
+  return { radius, offsetX: -radius };
+}
+
+function getCardOffset(progress: number, index: number, count: number): number {
+  const wheelOffset = progress * (count - 1);
+  return wheelOffset - index;
+}
+
+function getCardVisibility(offset: number): number {
+  const distance = Math.abs(offset);
+  if (distance >= 1) return 0;
+  if (distance <= HOLD_ZONE) return 1;
+  const t = (distance - HOLD_ZONE) / (1 - HOLD_ZONE);
+  return Math.pow(1 - t, 2.2);
+}
+
+function getCardTheta(offset: number): number {
+  const arcSpanRad = (ARC_SPAN_DEG * Math.PI) / 180;
+  return -offset * arcSpanRad;
+}
+
+function getCardPosition(
+  offset: number,
+  radius: number,
+  offsetX: number
+): { theta: number; x: number; y: number } {
+  const theta = getCardTheta(offset);
+  const transitionSpread =
+    -Math.sign(offset) *
+    radius *
+    TRANSITION_Y_PUSH *
+    Math.sin(Math.min(Math.abs(offset), 1) * Math.PI);
+
+  return {
+    theta,
+    x: offsetX + radius * Math.cos(theta),
+    y: radius * Math.sin(theta) + transitionSpread,
+  };
+}
+
+function mapScrollToVisualProgress(scrollProgress: number, count: number): number {
+  if (count <= 1) return scrollProgress;
+
+  const segments = count - 1;
+  const pos = scrollProgress * segments;
+  const segmentIndex = Math.min(Math.floor(pos), segments - 1);
+  const local = pos - segmentIndex;
+  const visualStart = segmentIndex / segments;
+  const visualEnd = (segmentIndex + 1) / segments;
+
+  if (local <= LOCK_FRACTION) return visualStart;
+
+  const t = (local - LOCK_FRACTION) / (1 - LOCK_FRACTION);
+  return visualStart + (visualEnd - visualStart) * t;
+}
+
+function getFocusedCardIndex(
+  visualProgress: number,
+  count: number
+): number | null {
+  if (count <= 1) return 0;
+
+  let focusedIndex: number | null = null;
+  let minOffset = FOCUS_THRESHOLD + 1;
+
+  for (let i = 0; i < count; i++) {
+    const distance = Math.abs(getCardOffset(visualProgress, i, count));
+    if (distance <= FOCUS_THRESHOLD && distance < minOffset) {
+      minOffset = distance;
+      focusedIndex = i;
+    }
+  }
+
+  return focusedIndex;
+}
+
 function applyScrollProgress(
-  progress: number,
+  scrollProgress: number,
   cards: HTMLDivElement[],
   dots: HTMLDivElement[],
   labels: HTMLSpanElement[],
   progressEl: HTMLDivElement | null,
   count: number
 ) {
-  const segmentSize = 1 / count;
+  const visualProgress = mapScrollToVisualProgress(scrollProgress, count);
+  const focusedIndex = getFocusedCardIndex(visualProgress, count);
+  const { radius, offsetX } = getWheelGeometry();
 
   if (progressEl) {
-    gsap.set(progressEl, { scaleY: progress, transformOrigin: "top" });
+    gsap.set(progressEl, { scaleY: scrollProgress, transformOrigin: "top" });
   }
 
   cards.forEach((card, i) => {
-    const local = (progress - i * segmentSize) / segmentSize;
+    const offset = getCardOffset(visualProgress, i, count);
+    const { theta, x, y } = getCardPosition(offset, radius, offsetX);
+    const visibility = getCardVisibility(offset);
+    const rotationDeg = (theta * 180) / Math.PI;
 
-    if (local < 0 || local > 1) {
-      gsap.set(card, { x: -SLIDE_OFFSET, opacity: 0 });
-    } else if (local < ENTER_END) {
-      const t = i === 0 ? Math.max(local / ENTER_END, 1) : local / ENTER_END;
-      gsap.set(card, { x: -SLIDE_OFFSET + SLIDE_OFFSET * t, opacity: t });
-    } else if (local < HOLD_END) {
-      gsap.set(card, { x: 0, opacity: 1 });
-    } else {
-      const t = (local - HOLD_END) / (1 - HOLD_END);
-      gsap.set(card, { x: -SLIDE_OFFSET * t, opacity: 1 - t });
-    }
+    gsap.set(card, {
+      x,
+      y,
+      rotation: rotationDeg,
+      scale: MIN_SCALE + (MAX_SCALE - MIN_SCALE) * visibility,
+      opacity: visibility,
+      zIndex: Math.round(visibility * 100),
+      transformOrigin: "center center",
+    });
   });
 
   dots.forEach((dot, i) => {
-    const local = (progress - i * segmentSize) / segmentSize;
-    const active =
-      i === 0 && progress < segmentSize * ENTER_END
-        ? true
-        : local >= ENTER_END * 0.5 && local <= HOLD_END + (1 - HOLD_END) * 0.5;
+    const active = focusedIndex !== null && i === focusedIndex;
     gsap.set(dot, { scale: active ? 1.3 : 1, opacity: active ? 1 : 0.35 });
   });
 
   labels.forEach((label, i) => {
-    const local = (progress - i * segmentSize) / segmentSize;
-    const active =
-      i === 0 && progress < segmentSize * ENTER_END
-        ? true
-        : local >= ENTER_END * 0.5 && local <= HOLD_END + (1 - HOLD_END) * 0.5;
+    const active = focusedIndex !== null && i === focusedIndex;
     gsap.set(label, { opacity: active ? 1 : 0.35 });
   });
 }
@@ -99,6 +182,7 @@ export function useExperienceScrollPin(refs: ExperienceScrollPinRefs) {
         );
 
       const st = ScrollTrigger.create({
+        id: "experience-pin",
         trigger: outer,
         start: "top top",
         end: () => `+=${window.innerHeight * count}`,

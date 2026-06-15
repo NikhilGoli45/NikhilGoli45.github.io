@@ -139,10 +139,19 @@
   overflow: visible;
 }
 
+.experience-carousel-hub {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
 .experience-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(92%, 42rem);
   will-change: transform, opacity;
-  padding-left: 3rem;
-  margin-left: -3rem;
 }
 
 .experience-timeline-progress {
