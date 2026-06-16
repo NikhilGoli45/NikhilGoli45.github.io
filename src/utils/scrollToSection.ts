@@ -19,6 +19,18 @@ export function getSectionScrollTop(sectionId: string): number | null {
     }
   }
 
+  if (sectionId === "projects") {
+    ScrollTrigger.refresh();
+    const st = ScrollTrigger.getById("projects-pin");
+    if (st) {
+      return st.start;
+    }
+    // Mobile / reduced-motion fallback (no pin): use element top with nav offset
+    const element = document.getElementById("projects");
+    if (!element) return null;
+    return element.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+  }
+
   const element = document.getElementById(sectionId);
   if (!element) return null;
 

@@ -29,6 +29,7 @@ const ProjectsSection = () => {
         x: -totalWidth,
         ease: "none",
         scrollTrigger: {
+          id: "projects-pin",
           trigger: outer,
           start: "top top",
           end: () => `+=${totalWidth}`,
@@ -64,6 +65,7 @@ const ProjectsSection = () => {
               <Link
                 key={project.id}
                 to={to}
+                onClick={() => sessionStorage.setItem("projectsScrollY", String(window.scrollY))}
                 className="group flex-shrink-0 w-[85vw] md:w-[55vw] lg:w-[45vw] h-[70vh] md:h-[calc(100vh-80px)] flex flex-col justify-between px-8 md:px-12 py-12 border-l border-border bg-background hover:bg-secondary transition-colors duration-300"
               >
                 <div className="flex items-start justify-between">

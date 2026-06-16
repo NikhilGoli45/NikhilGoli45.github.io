@@ -1,12 +1,20 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigationType } from "react-router-dom";
+
+if (typeof window !== "undefined" && "scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
+  const navigationType = useNavigationType();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [pathname]);
+    // On POP (browser back/forward or navigate(-1)), let Index.tsx restore position
+    if (navigationType !== "POP") {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [pathname, navigationType]);
 
   return null;
 };
