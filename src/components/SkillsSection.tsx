@@ -25,6 +25,12 @@ const SkillsSection = () => {
 
   return (
     <SectionWrapper ref={sectionRef} id="skills">
+      <div className="gsap-reveal mb-10 md:mb-12">
+        <h2 className="font-display text-h1 text-foreground leading-none tracking-tight">
+          Skills
+        </h2>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
         {skillCategories.map((category, i) => (
           <div key={i} className="gsap-reveal">
