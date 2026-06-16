@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/data/projects";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { ProjectWireframe } from "@/components/project-wireframes/ProjectWireframe";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,17 +49,11 @@ const ProjectsSection = () => {
   }, []);
 
   return (
-    <>
-      {/* Section header outside the pinned area */}
-      <div className="px-6 md:px-12 lg:px-20 pt-24 md:pt-32 lg:pt-40 pb-12 border-t border-border">
-        <div className="flex items-baseline justify-between">
-          <h2 className="font-display text-h1 text-foreground leading-none tracking-tight">Projects</h2>
-          <span className="caption text-muted-foreground">03 · {projects.length} works</span>
-        </div>
-      </div>
-
-      {/* Pinned horizontal scroll container */}
-      <div ref={outerRef} id="projects" className="overflow-hidden">
+    <div
+      ref={outerRef}
+      id="projects"
+      className="overflow-hidden md:pt-[80px]"
+    >
         <div ref={trackRef} className="h-scroll-track">
           {projects.map((project, i) => {
             const to = readyProjectIds.includes(project.id)
@@ -70,13 +64,17 @@ const ProjectsSection = () => {
               <Link
                 key={project.id}
                 to={to}
-                className="group flex-shrink-0 w-[85vw] md:w-[55vw] lg:w-[45vw] h-[70vh] md:h-screen flex flex-col justify-between px-8 md:px-12 py-12 border-l border-border bg-background hover:bg-secondary transition-colors duration-300"
+                className="group flex-shrink-0 w-[85vw] md:w-[55vw] lg:w-[45vw] h-[70vh] md:h-[calc(100vh-80px)] flex flex-col justify-between px-8 md:px-12 py-12 border-l border-border bg-background hover:bg-secondary transition-colors duration-300"
               >
                 <div className="flex items-start justify-between">
                   <span className="caption text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
                   <span className="caption text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
                     View →
                   </span>
+                </div>
+
+                <div className="flex-1 flex items-center justify-center py-4 md:py-6 min-h-0">
+                  <ProjectWireframe id={project.id} />
                 </div>
 
                 <div>
@@ -98,11 +96,7 @@ const ProjectsSection = () => {
             );
           })}
         </div>
-      </div>
-
-      {/* Mobile fallback: stacked cards (hidden on md+) */}
-      {/* The above already works on mobile via normal overflow, no extra markup needed */}
-    </>
+    </div>
   );
 };
 

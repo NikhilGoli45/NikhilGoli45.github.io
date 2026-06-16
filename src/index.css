@@ -172,3 +172,49 @@
   text-transform: uppercase;
   color: hsl(var(--muted-foreground));
 }
+
+/* ── Project card wireframe graphics ── */
+
+.wireframe-svg {
+  overflow: visible;
+}
+
+.wireframe-base [data-wire],
+.wireframe-draw [data-wire] {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1;
+}
+
+/* Grey base — always visible underneath */
+.wireframe-base [data-wire] {
+  stroke: hsl(var(--muted-foreground));
+  opacity: 0.38;
+}
+
+/* White draw layer — sits on top, invisible until hover */
+/* stroke-dashoffset: 0 keeps lines "drawn"; opacity hides them */
+.wireframe-draw [data-wire] {
+  stroke: hsl(var(--foreground));
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* On hover: restart the draw-in animation each time */
+.group:hover .wireframe-draw [data-wire] {
+  animation: wire-draw-in 0.8s ease both;
+}
+
+@keyframes wire-draw-in {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
