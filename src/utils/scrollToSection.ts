@@ -19,6 +19,15 @@ export function getSectionScrollTop(sectionId: string): number | null {
     }
   }
 
+  if (sectionId === "education") {
+    ScrollTrigger.refresh();
+    const st = ScrollTrigger.getById("education-pin");
+    if (st) {
+      // Crest finishes at the end of the scrubbed pin timeline.
+      return Math.max(st.start, st.end - 1);
+    }
+  }
+
   if (sectionId === "projects") {
     ScrollTrigger.refresh();
     const st = ScrollTrigger.getById("projects-pin");
@@ -79,6 +88,10 @@ export function scrollToSection(sectionId: string, behavior: ScrollBehavior = "s
       sectionId === "about" &&
       window.matchMedia("(min-width: 768px)").matches &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const needsPinnedEducation =
+      sectionId === "education" &&
+      window.matchMedia("(min-width: 768px)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (
       needsPinnedAbout &&
@@ -90,7 +103,25 @@ export function scrollToSection(sectionId: string, behavior: ScrollBehavior = "s
       return;
     }
 
+    if (
+      needsPinnedEducation &&
+      !ScrollTrigger.getById("education-pin") &&
+      document.getElementById("education") &&
+      retries < 12
+    ) {
+      requestAnimationFrame(() => attempt(retries + 1));
+      return;
+    }
+
     if (top === null) return;
+
+    if (sectionId === "education") {
+      const st = ScrollTrigger.getById("education-pin");
+      if (st?.animation) {
+        st.animation.progress(1, true);
+      }
+    }
+
     window.scrollTo({ top, behavior });
   };
 

@@ -218,3 +218,20 @@
     opacity: 1;
   }
 }
+
+/* ── Education crest ── */
+.education-crest [data-wire] {
+  vector-effect: non-scaling-stroke;
+  stroke-width: 1;
+}
+
+/* GSAP scrubs stroke-dashoffset during the pin — no opacity fades. */
+.education-crest .wireframe-draw [data-wire] {
+  opacity: 1;
+  transition: none;
+}
+
+/* Static / reduced-motion fallback: show the crest fully drawn. */
+.education-crest-drawn .wireframe-draw [data-wire] {
+  stroke-dashoffset: 0;
+}

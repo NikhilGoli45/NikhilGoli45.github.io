@@ -6,7 +6,7 @@ import emailjs from 'emailjs-com';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { useGSAPReveal } from "@/hooks/useGSAPReveal";
 
@@ -17,6 +17,12 @@ const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
+
+const links = [
+  { label: "Email", href: "mailto:ngoli@umich.edu", text: "ngoli@umich.edu" },
+  { label: "GitHub", href: "https://github.com/NikhilGoli45", text: "github.com/NikhilGoli45", external: true },
+  { label: "LinkedIn", href: "https://linkedin.com/in/nikhilgoli", text: "linkedin.com/in/nikhilgoli", external: true },
+];
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -47,100 +53,89 @@ const ContactSection = () => {
   };
 
   return (
-    <SectionWrapper ref={sectionRef} id="contact">
-      {/* Bold closing statement */}
-      <div className="gsap-reveal mb-16">
-        <h2 className="font-display text-display text-foreground leading-none tracking-tight">
-          Let's<br />Talk.
-        </h2>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-        {/* Links */}
-        <div className="gsap-reveal space-y-6">
-          <div className="border-t border-border pt-6">
-            <span className="caption text-muted-foreground block mb-2">Email</span>
-            <a href="mailto:ngoli@umich.edu" className="font-sans text-foreground link-underline">
-              ngoli@umich.edu
-            </a>
-          </div>
-          <div className="border-t border-border pt-6">
-            <span className="caption text-muted-foreground block mb-2">GitHub</span>
-            <a href="https://github.com/NikhilGoli45" target="_blank" rel="noopener noreferrer" className="font-sans text-foreground link-underline">
-              github.com/NikhilGoli45
-            </a>
-          </div>
-          <div className="border-t border-border pt-6">
-            <span className="caption text-muted-foreground block mb-2">LinkedIn</span>
-            <a href="https://linkedin.com/in/nikhilgoli" target="_blank" rel="noopener noreferrer" className="font-sans text-foreground link-underline">
-              linkedin.com/in/nikhilgoli
-            </a>
+    <SectionWrapper ref={sectionRef} id="contact" className="py-8 md:py-12 lg:py-14">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 lg:items-center">
+        <div className="gsap-reveal">
+          <h2 className="font-display text-h2 md:text-h1 text-foreground leading-none tracking-tight mb-5 md:mb-8 lg:mb-10">
+            Let's Talk.
+          </h2>
+          <div className="flex flex-wrap gap-x-6 gap-y-3 lg:flex-col lg:gap-y-0 lg:divide-y lg:divide-border">
+            {links.map((link) => (
+              <div key={link.label} className="lg:py-3 lg:first:pt-0 lg:last:pb-0">
+                <span className="caption text-muted-foreground block mb-1">{link.label}</span>
+                <a
+                  href={link.href}
+                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="font-sans text-sm text-foreground link-underline"
+                >
+                  {link.text}
+                </a>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Contact form */}
-        <div className="gsap-reveal">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        placeholder="Name"
-                        {...field}
-                        className="bg-transparent border-0 border-b border-border rounded-none px-0 py-3 font-sans text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:border-foreground transition-colors"
-                      />
-                    </FormControl>
-                    <FormMessage className="caption" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="Email"
-                        {...field}
-                        className="bg-transparent border-0 border-b border-border rounded-none px-0 py-3 font-sans text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:border-foreground transition-colors"
-                      />
-                    </FormControl>
-                    <FormMessage className="caption" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Message"
-                        rows={4}
-                        {...field}
-                        className="bg-transparent border-0 border-b border-border rounded-none px-0 py-3 font-sans text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:border-foreground transition-colors resize-none"
-                      />
-                    </FormControl>
-                    <FormMessage className="caption" />
-                  </FormItem>
-                )}
-              />
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="caption text-foreground border border-foreground px-6 py-3 hover:bg-foreground hover:text-background transition-colors disabled:opacity-40"
-              >
-                {isSubmitting ? "Sending…" : "Send Message"}
-              </button>
-            </form>
-          </Form>
+        <div className="gsap-reveal lg:self-center">
+          <div className="border border-border rounded-lg p-3 md:p-5 bg-muted/20">
+            <h3 className="caption text-muted-foreground mb-4">Send a message</h3>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-sans text-sm">Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Your name" {...field} />
+                        </FormControl>
+                        <FormMessage className="caption" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-sans text-sm">Email</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="you@example.com" {...field} />
+                        </FormControl>
+                        <FormMessage className="caption" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-sans text-sm">Message</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="What's on your mind?"
+                          rows={2}
+                          className="resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="caption" />
+                    </FormItem>
+                  )}
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="caption text-foreground border border-foreground px-6 py-2.5 hover:bg-foreground hover:text-background transition-colors disabled:opacity-40"
+                >
+                  {isSubmitting ? "Sending…" : "Send Message"}
+                </button>
+              </form>
+            </Form>
+          </div>
         </div>
       </div>
     </SectionWrapper>

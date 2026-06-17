@@ -53,7 +53,7 @@ const ProjectsSection = () => {
     <div
       ref={outerRef}
       id="projects"
-      className="overflow-hidden md:pt-[80px]"
+      className="overflow-hidden border-t border-border md:pt-[80px]"
     >
         <div ref={trackRef} className="h-scroll-track">
           {projects.map((project, i) => {
