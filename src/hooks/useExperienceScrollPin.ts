@@ -22,6 +22,7 @@ interface ExperienceScrollPinRefs {
   pinRef: RefObject<HTMLElement | null>;
   progressRef: RefObject<HTMLDivElement | null>;
   count: number;
+  enabled?: boolean;
 }
 
 function getWheelRadius(): number {
@@ -157,55 +158,84 @@ function applyScrollProgress(
 }
 
 export function useExperienceScrollPin(refs: ExperienceScrollPinRefs) {
-  const { outerRef, pinRef, progressRef, count } = refs;
+  const { outerRef, pinRef, progressRef, count, enabled = true } = refs;
 
   useLayoutEffect(() => {
-    if (reducedMotion()) return;
+    if (!enabled || reducedMotion()) return;
 
-    const outer = outerRef.current;
-    const pin = pinRef.current;
-    const progress = progressRef.current;
+    let cancelled = false;
+    let mm: gsap.MatchMedia | null = null;
+    let rafId = 0;
+    let retries = 0;
 
-    if (!outer || !pin) return;
+    const setup = () => {
+      if (cancelled) return;
 
-    const cards = pin.querySelectorAll<HTMLDivElement>(".experience-card");
-    const dots = pin.querySelectorAll<HTMLDivElement>(".experience-timeline-dot");
-    const labels = pin.querySelectorAll<HTMLSpanElement>(".experience-timeline-label");
-    const companies = pin.querySelectorAll<HTMLSpanElement>(".experience-timeline-company");
+      const outer = outerRef.current;
+      const pin = pinRef.current;
+      const progress = progressRef.current;
 
-    if (cards.length !== count) return;
+      if (!outer || !pin) {
+        if (retries++ < 120) {
+          rafId = requestAnimationFrame(setup);
+        }
+        return;
+      }
 
-    const mm = gsap.matchMedia();
+      const cards = pin.querySelectorAll<HTMLDivElement>(".experience-card");
+      const dots = pin.querySelectorAll<HTMLDivElement>(".experience-timeline-dot");
+      const labels = pin.querySelectorAll<HTMLSpanElement>(".experience-timeline-label");
+      const companies = pin.querySelectorAll<HTMLSpanElement>(".experience-timeline-company");
 
-    mm.add("(min-width: 768px)", () => {
-      const update = (p: number) =>
-        applyScrollProgress(
-          p,
-          [...cards],
-          [...dots],
-          [...labels],
-          [...companies],
-          progress,
-          count
-        );
+      if (cards.length !== count) {
+        if (retries++ < 120) {
+          rafId = requestAnimationFrame(setup);
+        }
+        return;
+      }
 
-      const st = ScrollTrigger.create({
-        id: "experience-pin",
-        trigger: outer,
-        start: "top top",
-        end: () => `+=${window.innerHeight * count}`,
-        pin,
-        scrub: 1,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => update(self.progress),
+      ScrollTrigger.getById("experience-pin")?.kill();
+
+      mm = gsap.matchMedia();
+
+      mm.add("(min-width: 768px)", () => {
+        const update = (p: number) =>
+          applyScrollProgress(
+            p,
+            [...cards],
+            [...dots],
+            [...labels],
+            [...companies],
+            progress,
+            count
+          );
+
+        const st = ScrollTrigger.create({
+          id: "experience-pin",
+          trigger: outer,
+          start: "top top",
+          end: () => `+=${window.innerHeight * count}`,
+          pin,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => update(self.progress),
+        });
+
+        update(st.progress);
+        ScrollTrigger.refresh();
+
+        return () => st.kill();
       });
+    };
 
-      update(st.progress);
+    setup();
 
-      return () => st.kill();
-    });
-
-    return () => mm.revert();
-  }, [count, outerRef, pinRef, progressRef]);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(rafId);
+      mm?.revert();
+      ScrollTrigger.getById("experience-pin")?.kill();
+    };
+  }, [count, enabled, outerRef, pinRef, progressRef]);
 }

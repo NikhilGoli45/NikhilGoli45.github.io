@@ -5,9 +5,18 @@ import { scrollToExperienceCard } from "@/utils/scrollToSection";
 
 const experiences = [
   {
+    title: "Software Engineering",
+    company: "Applied Intuition",
+    period: "August 2026 – Present",
+    achievements: [
+      "Building the next generation of high-performance software for autonomous vehicles",
+    ],
+    skills: ["TBA (Coming Soon)"],
+  },
+  {
     title: "Software Engineering Intern",
-    company: "a0.dev (YC 25)",
-    period: "Jul 2025 – Present",
+    company: "a0.dev (YC W25)",
+    period: "Jul 2025 – Aug 2025",
     achievements: [
       "Enabled AI agents to detect and resolve errors without manual prompts by automatically ingesting and analyzing build and runtime logs, reducing API calls by 15% and preserving users' daily request limits",
       "Identified synchronous localStorage calls as a bottleneck via Chrome DevTools, then leveraged IndexedDB's async APIs to cut main-thread blocking from 1000ms to 300ms (70%) and boost overall site performance by 30%",
@@ -119,6 +128,7 @@ const ExperienceSection = () => {
     pinRef,
     progressRef,
     count: experiences.length,
+    enabled: !useStaticLayout,
   });
 
   const staticList = (
@@ -141,7 +151,7 @@ const ExperienceSection = () => {
 
   return (
     <div id="experience">
-      <div ref={outerRef}>
+      <div ref={outerRef} key={`experience-carousel-${experiences.length}`}>
         <SectionWrapper
           ref={pinRef}
           className="h-screen overflow-x-visible overflow-y-visible !py-0"
