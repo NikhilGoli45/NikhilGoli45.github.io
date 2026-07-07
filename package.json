@@ -13,7 +13,8 @@
     "predeploy": "vite build && cp dist/index.html dist/404.html && echo 'nikhilgoli.com' > dist/CNAME",
     "deploy": "gh-pages -b gh-pages -d dist",
     "worker:dev": "npm --prefix worker run dev",
-    "worker:deploy": "npm --prefix worker run deploy"
+    "worker:deploy": "npm --prefix worker run deploy",
+    "worker:set-password": "npm --prefix worker run set-password"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

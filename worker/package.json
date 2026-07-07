@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "set-password": "wrangler secret put PHOTO_UPLOAD_PASSWORD"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260101.0",
