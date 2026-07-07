@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import HeroGridBackground from "./HeroGridBackground";
 
@@ -96,6 +97,12 @@ const HeroSection = () => {
             >
               Email
             </a>
+            <Link
+              to="/photography"
+              className="caption text-foreground link-underline"
+            >
+              Photography
+            </Link>
           </div>
         </div>
       </div>

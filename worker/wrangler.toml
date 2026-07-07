@@ -1,0 +1,10 @@
+name = "photo-api"
+main = "src/index.ts"
+compatibility_date = "2026-05-01"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "nikhil-photos"
+
+[vars]
+ALLOWED_ORIGINS = "https://nikhilgoli.com,https://www.nikhilgoli.com,http://localhost:8080"

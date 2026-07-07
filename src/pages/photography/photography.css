@@ -1,0 +1,228 @@
+/* Paper theme for the photography portfolio. Scoped to .photo-theme so the
+   main site's dark tokens are untouched. */
+
+.photo-theme {
+  --background: 42 45% 94%;
+  --foreground: 40 15% 16%;
+  --card: 42 40% 97%;
+  --card-foreground: 40 15% 16%;
+  --popover: 42 40% 97%;
+  --popover-foreground: 40 15% 16%;
+  --primary: 40 15% 16%;
+  --primary-foreground: 42 45% 94%;
+  --secondary: 40 20% 88%;
+  --secondary-foreground: 40 15% 16%;
+  --muted: 40 20% 88%;
+  --muted-foreground: 38 12% 38%;
+  --accent: 10 45% 45%; /* faded postmark red */
+  --accent-foreground: 42 45% 94%;
+  --border: 38 20% 78%;
+  --input: 38 20% 78%;
+  --ring: 40 15% 16%;
+
+  --paper: #f7f3ea;
+  --ink: #2e2a22;
+  --ink-soft: #6b6252;
+  --stamp: #a8503f;
+
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+/* Subtle paper grain, no image asset needed */
+.paper-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0 0.32 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.font-hand {
+  font-family: "Caveat", cursive;
+}
+
+/* ---- Map pins: tiny tilted polaroids ---- */
+
+/* Raise the hovered marker above its siblings (z-index must sit on the
+   maplibregl-marker element itself, not the inner button). */
+.photo-pin-marker:hover,
+.photo-pin-marker:focus-within {
+  z-index: 10;
+}
+
+.photo-pin {
+  display: block;
+  cursor: pointer;
+  width: 52px;
+  padding: 4px 4px 12px;
+  background: #fffdf8;
+  border: 1px solid rgba(46, 42, 34, 0.35);
+  box-shadow: 2px 3px 6px rgba(46, 42, 34, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transform: rotate(var(--pin-tilt, -2deg));
+}
+
+.photo-pin:hover,
+.photo-pin:focus-visible {
+  transform: rotate(0deg) scale(1.12);
+  box-shadow: 3px 5px 12px rgba(46, 42, 34, 0.35);
+}
+
+.photo-pin img,
+.photo-pin .photo-pin-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: #e9e2d2;
+  font-size: 22px;
+}
+
+.photo-pin-label {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 2px;
+  font-family: "Caveat", cursive;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink, #2e2a22);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  text-shadow:
+    0 0 4px #f7f3ea,
+    0 0 8px #f7f3ea;
+}
+
+.photo-pin:hover .photo-pin-label,
+.photo-pin:focus-visible .photo-pin-label {
+  opacity: 1;
+}
+
+/* ---- Collage: taped journal photos ---- */
+
+.collage-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
+  padding: 8px 8px 12px;
+  background: #fffdf8;
+  border: 1px solid rgba(46, 42, 34, 0.2);
+  box-shadow: 2px 3px 8px rgba(46, 42, 34, 0.18);
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.collage-photo:nth-child(odd) {
+  transform: rotate(-0.7deg);
+}
+
+.collage-photo:nth-child(even) {
+  transform: rotate(0.7deg);
+}
+
+.collage-photo:hover,
+.collage-photo:focus-visible {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 4px 6px 16px rgba(46, 42, 34, 0.28);
+  z-index: 2;
+}
+
+/* washi-tape corner */
+.collage-photo::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 64px;
+  height: 18px;
+  transform: translateX(-50%) rotate(-2deg);
+  background: rgba(168, 80, 63, 0.28);
+  border-left: 1px dashed rgba(168, 80, 63, 0.4);
+  border-right: 1px dashed rgba(168, 80, 63, 0.4);
+}
+
+.collage-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #e9e2d2;
+}
+
+/* Postmark-style stamp badge */
+.postmark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 78px;
+  height: 78px;
+  border: 2px solid var(--stamp, #a8503f);
+  border-radius: 50%;
+  color: var(--stamp, #a8503f);
+  font-family: "Caveat", cursive;
+  font-weight: 600;
+  line-height: 1.05;
+  text-align: center;
+  transform: rotate(8deg);
+  opacity: 0.85;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0.05'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23r)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0.05'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23r)'/%3E%3C/svg%3E");
+}
+
+/* ---- MapLibre chrome adjustments ---- */
+
+.photo-theme .maplibregl-ctrl-attrib {
+  background: rgba(247, 243, 234, 0.8);
+  font-size: 10px;
+}
+
+.photo-theme .maplibregl-ctrl-attrib a {
+  color: #6b6252;
+}
+
+.photo-theme .maplibregl-canvas:focus {
+  outline: none;
+}
+
+/* ---- Collage panel slide-up ---- */
+
+@keyframes collage-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.collage-panel {
+  animation: collage-rise 0.35s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collage-panel {
+    animation: none;
+  }
+  .photo-pin,
+  .collage-photo {
+    transition: none;
+  }
+}
+
+/* ---- Lightbox paper accents ---- */
+
+.photo-theme .yarl__container {
+  background-color: rgba(28, 25, 20, 0.93);
+}
