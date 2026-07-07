@@ -7,7 +7,7 @@ export const WORKER_URL = import.meta.env.DEV
 
 // Public base URL for image keys stored in the manifest. Keys, not full URLs,
 // live in the manifest so this can later switch to photos.nikhilgoli.com.
-export const R2_PUBLIC_BASE = "https://pub-REPLACE_WITH_BUCKET_HASH.r2.dev/";
+export const R2_PUBLIC_BASE = "https://pub-814be7b80db9447f810ccad7ff9da9fc.r2.dev/";
 
 // Dev photos live in miniflare's local bucket, so only the local worker can
 // serve them; production reads straight from the R2 public host.
