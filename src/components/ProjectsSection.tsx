@@ -50,11 +50,13 @@ const ProjectsSection = () => {
   }, []);
 
   return (
-    <div
-      ref={outerRef}
-      id="projects"
-      className="overflow-hidden border-t border-border md:pt-[80px]"
-    >
+    // Stable wrapper: GSAP's pin-spacer re-parents the pinned div below, so
+    // React sibling insertions must anchor on this untouched node instead.
+    <div id="projects">
+      <div
+        ref={outerRef}
+        className="overflow-x-auto overflow-y-hidden snap-x snap-mandatory md:overflow-hidden md:snap-none border-t border-border md:pt-[80px]"
+      >
         <div ref={trackRef} className="h-scroll-track">
           {projects.map((project, i) => {
             const to = readyProjectIds.includes(project.id)
@@ -66,7 +68,7 @@ const ProjectsSection = () => {
                 key={project.id}
                 to={to}
                 onClick={() => sessionStorage.setItem("projectsScrollY", String(window.scrollY))}
-                className="group flex-shrink-0 w-[85vw] md:w-[55vw] lg:w-[45vw] h-[70vh] md:h-[calc(100vh-80px)] flex flex-col justify-between px-8 md:px-12 py-12 border-l border-border bg-background hover:bg-secondary transition-colors duration-300"
+                className="group flex-shrink-0 snap-center md:snap-align-none w-[85vw] md:w-[55vw] lg:w-[45vw] h-[70vh] md:h-[calc(100vh-80px)] flex flex-col justify-between px-8 md:px-12 py-12 border-l border-border bg-background hover:bg-secondary transition-colors duration-300"
               >
                 <div className="flex items-start justify-between">
                   <span className="caption text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
@@ -98,6 +100,7 @@ const ProjectsSection = () => {
             );
           })}
         </div>
+      </div>
     </div>
   );
 };

@@ -198,7 +198,7 @@ export function useExperienceScrollPin(refs: ExperienceScrollPinRefs) {
 
       mm = gsap.matchMedia();
 
-      mm.add("(min-width: 768px)", () => {
+      mm.add("(min-width: 1024px)", () => {
         const update = (p: number) =>
           applyScrollProgress(
             p,

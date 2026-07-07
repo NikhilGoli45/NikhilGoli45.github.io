@@ -47,6 +47,7 @@ interface AboutScrollPinRefs {
   outerRef: RefObject<HTMLDivElement | null>;
   pinRef: RefObject<HTMLElement | null>;
   stepCount: number;
+  enabled?: boolean;
 }
 
 interface AboutRevealItem {
@@ -108,11 +109,11 @@ function applyScrollProgress(
 }
 
 export function useAboutScrollPin(refs: AboutScrollPinRefs) {
-  const { outerRef, pinRef, stepCount } = refs;
+  const { outerRef, pinRef, stepCount, enabled = true } = refs;
   const totalSegments = stepCount + 1;
 
   useLayoutEffect(() => {
-    if (reducedMotion()) return;
+    if (!enabled || reducedMotion()) return;
 
     const outer = outerRef.current;
     const pin = pinRef.current;
@@ -132,7 +133,7 @@ export function useAboutScrollPin(refs: AboutScrollPinRefs) {
 
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 768px)", () => {
+    mm.add("(min-width: 1024px)", () => {
       const update = (p: number) => applyScrollProgress(p, items, stepCount);
 
       const st = ScrollTrigger.create({
@@ -153,5 +154,5 @@ export function useAboutScrollPin(refs: AboutScrollPinRefs) {
     });
 
     return () => mm.revert();
-  }, [stepCount, outerRef, pinRef, totalSegments]);
+  }, [stepCount, enabled, outerRef, pinRef, totalSegments]);
 }

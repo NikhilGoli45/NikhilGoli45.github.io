@@ -92,12 +92,12 @@ const EducationSection = () => {
   const [useStaticLayout, setUseStaticLayout] = useState(
     () =>
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      window.matchMedia("(max-width: 767px)").matches
+      window.matchMedia("(max-width: 1023px)").matches
   );
 
   useEffect(() => {
     const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const widthMq = window.matchMedia("(max-width: 767px)");
+    const widthMq = window.matchMedia("(max-width: 1023px)");
 
     const update = () => setUseStaticLayout(motionMq.matches || widthMq.matches);
 

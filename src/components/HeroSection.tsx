@@ -21,7 +21,7 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col px-6 md:px-12 lg:px-20 pt-28 md:pt-32 pb-6 md:pb-10 overflow-hidden"
+      className="relative min-h-screen supports-[height:100svh]:min-h-svh flex flex-col px-6 md:px-12 lg:px-20 pt-28 md:pt-32 pb-6 md:pb-10 overflow-hidden"
     >
       <HeroGridBackground />
 

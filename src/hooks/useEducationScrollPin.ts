@@ -75,7 +75,7 @@ export function useEducationScrollPin(refs: EducationScrollPinRefs) {
 
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 768px)", () => {
+      mm.add("(min-width: 1024px)", () => {
         const tl = gsap.timeline({
           defaults: { ease: "none" },
           scrollTrigger: {
