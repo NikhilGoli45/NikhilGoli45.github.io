@@ -164,7 +164,7 @@ const Navbar = () => {
           <Link
             to="/photography"
             aria-label="Photography"
-            className="text-foreground transition-colors duration-300 hover:text-foreground/70"
+            className="text-muted-foreground transition-colors duration-300 hover:!text-foreground/70"
           >
             <Camera size={20} strokeWidth={1.75} />
           </Link>
