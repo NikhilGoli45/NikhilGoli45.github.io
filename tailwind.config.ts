@@ -22,7 +22,6 @@ export default {
 				display: ['"Archivo Black"', 'sans-serif'],
 				serif: ['Fraunces', 'serif'],
 				sans: ['Inter', 'sans-serif'],
-				hand: ['Caveat', 'cursive'],
 			},
 			fontSize: {
 				'display': ['clamp(4rem,14vw,14rem)', { lineHeight: '0.9', letterSpacing: '-0.03em' }],

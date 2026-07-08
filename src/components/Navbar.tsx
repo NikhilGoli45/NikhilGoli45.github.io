@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Camera, Menu, X } from "lucide-react";
 import { NAV_OFFSET, scrollToSection as scrollToSectionTarget } from "@/utils/scrollToSection";
 
 const navItems = [
@@ -159,17 +159,15 @@ const Navbar = () => {
           />
 
           {/* Not a page section, so it sits outside the numbered index,
-              set off by a divider and previewing the destination's own
-              handwritten, paper-toned identity. */}
-          <div className="flex items-center gap-3">
-            <span aria-hidden className="h-4 w-px bg-border" />
-            <Link
-              to="/photography"
-              className="font-hand text-xl font-semibold leading-none text-[#c2705a] -rotate-3 hover:rotate-0 focus-visible:rotate-0 transition-transform duration-300 outline-none"
-            >
-              Photography
-            </Link>
-          </div>
+              set off by a divider spaced evenly with the rest of the nav. */}
+          <span aria-hidden className="h-4 w-px bg-border" />
+          <Link
+            to="/photography"
+            aria-label="Photography"
+            className="text-foreground transition-colors duration-300 hover:text-foreground/70"
+          >
+            <Camera size={20} strokeWidth={1.75} />
+          </Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -199,8 +197,9 @@ const Navbar = () => {
           <Link
             to="/photography"
             onClick={() => setMobileMenuOpen(false)}
-            className="font-hand text-2xl font-semibold text-[#c2705a] -rotate-2 inline-block w-fit pt-4 mt-1 border-t border-border"
+            className="caption flex items-center gap-2 pt-5 mt-1 border-t border-border transition-colors duration-300 hover:!text-foreground/70"
           >
+            <Camera size={16} strokeWidth={1.75} />
             Photography
           </Link>
         </nav>
