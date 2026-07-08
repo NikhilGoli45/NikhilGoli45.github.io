@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { NAV_OFFSET, scrollToSection as scrollToSectionTarget } from "@/utils/scrollToSection";
 
@@ -157,6 +157,19 @@ const Navbar = () => {
               opacity: indicator.opacity,
             }}
           />
+
+          {/* Not a page section, so it sits outside the numbered index,
+              set off by a divider and previewing the destination's own
+              handwritten, paper-toned identity. */}
+          <div className="flex items-center gap-3">
+            <span aria-hidden className="h-4 w-px bg-border" />
+            <Link
+              to="/photography"
+              className="font-hand text-xl font-semibold leading-none text-[#c2705a] -rotate-3 hover:rotate-0 focus-visible:rotate-0 transition-transform duration-300 outline-none"
+            >
+              Photography
+            </Link>
+          </div>
         </nav>
 
         {/* Mobile toggle */}
@@ -183,6 +196,13 @@ const Navbar = () => {
               {label}
             </button>
           ))}
+          <Link
+            to="/photography"
+            onClick={() => setMobileMenuOpen(false)}
+            className="font-hand text-2xl font-semibold text-[#c2705a] -rotate-2 inline-block w-fit pt-4 mt-1 border-t border-border"
+          >
+            Photography
+          </Link>
         </nav>
       )}
     </header>
