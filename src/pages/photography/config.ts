@@ -3,7 +3,7 @@
 // public access on the bucket, replace the placeholder hosts below.
 export const WORKER_URL = import.meta.env.DEV
   ? "http://localhost:8787"
-  : "https://photo-api.nikhilgoli.workers.dev";
+  : "https://photo-api.golinikhil1.workers.dev";
 
 // Public base URL for image keys stored in the manifest. Keys, not full URLs,
 // live in the manifest so this can later switch to photos.nikhilgoli.com.
